@@ -1,5 +1,4 @@
 // @ts-check
-
 import tseslint from "typescript-eslint";
 import pluginAstro from "eslint-plugin-astro";
 import { qwikEslint9Plugin } from "eslint-plugin-qwik";
@@ -12,9 +11,6 @@ export default tseslint.config(
 
     pluginAstro.configs["flat/recommended"],
     pluginAstro.configs["flat/jsx-a11y-strict"],
-
-    qwikEslint9Plugin.configs.strict,
-    qwikEslint9Plugin.configs.recommended,
 
     // * Astro overrides
     {
@@ -36,7 +32,7 @@ export default tseslint.config(
     // * Qwik overrides
     {
         files: ["**/*.ts", "**/*.tsx"],
-        // TODO: qwik
+        extends: [...qwikEslint9Plugin.configs.recommended, ...qwikEslint9Plugin.configs.strict],
         rules: {},
     },
 

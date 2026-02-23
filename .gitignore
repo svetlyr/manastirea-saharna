@@ -33,3 +33,6 @@ pnpm-debug.log*
 *.zip
 *.tar.gz
 *.pem
+
+# astro-i18n-aut
+**/astro_tmp_pages_*

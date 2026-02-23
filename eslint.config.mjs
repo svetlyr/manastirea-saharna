@@ -1,7 +1,6 @@
 // @ts-check
-
-import eslint from "@eslint/js";
 import globals from "globals";
+import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
@@ -47,6 +46,14 @@ export default tseslint.config(
                 tsconfigRootDir: import.meta.dirname,
             },
             globals: { ...globals.browser, ...globals.node, ...globals.es2026 },
+        },
+    },
+
+    {
+        files: ["**/*.d.ts"],
+        rules: {
+            "@typescript-eslint/consistent-type-imports": "off",
+            "@typescript-eslint/consistent-type-definitions": "off",
         },
     },
 );

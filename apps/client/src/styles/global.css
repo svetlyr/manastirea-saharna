@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+@layer components {
+    .px-global {
+        @apply mx-auto w-full max-w-[1920px] px-6;
+    }
+
+    .escape-px {
+        @apply relative left-1/2 w-screen -translate-x-1/2;
+    }
+}
