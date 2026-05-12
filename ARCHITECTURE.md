@@ -10,6 +10,18 @@ manastirea-saharna/
 └── package.json  # workspace root
 ```
 
+## Contents
+
+- [`apps/client`](#appsclient) — public static site (Astro + Qwik + Tailwind, i18n, contact form UI)
+- [`apps/cms`](#appscms) — Payload backend for editors, fires the rebuild
+- [Hosting & cost](#hosting--cost) — free-tier service map and the constraints it forces
+- [Contact form](#contact-form) — visitor → Worker → Resend → monastery
+  - [Alternatives considered](#alternatives-considered) — Payload `sendEmail()`, Gmail+whitelist, Zoho SMTP
+- [Email sending](#email-sending) — provider comparison, DNS, deliverability
+  - [Quota headroom](#quota-headroom) — free-tier ceilings vs expected load
+- [Build & deploy flow](#build--deploy-flow) — publish hook → `repository_dispatch` → static rebuild
+- [Conventions](#conventions) — TypeScript, lint/format, path aliases, runtime pins
+
 ## `apps/client`
 
 Public-facing static site.
@@ -32,15 +44,15 @@ Backend for editors to create and manage posts. Currently scaffolded (empty) —
 
 Goal: **zero recurring runtime cost.** Everything lives on free tiers.
 
-| Piece            | Service                                              | Why                                                          |
-| ---------------- | ---------------------------------------------------- | ------------------------------------------------------------ |
-| Static client    | **GitHub Pages**                                     | Free, unlimited for public repos; deploys straight from CI.  |
-| Image / media    | **Cloudflare R2** bucket                             | Free egress, generous free storage; S3-compatible API for Payload's media adapter. |
-| Database         | **Neon** (Postgres) — or Railway / similar free tier | Neon free tier scales to zero; fine for a single-editor CMS. |
-| CMS runtime      | Any free Node host (Railway, Render, Fly.io free app, Payload Cloud free, etc.) | Only needs to be reachable when the one editor logs in; cold starts are acceptable. |
-| Form handler     | **Cloudflare Worker**                                | Free 100 k req/day; decouples the contact form from CMS uptime. |
-| Transactional email | **Resend** free tier (3 k/mo, 100/day) — fallback Brevo (300/day) | Worker calls Resend's API to forward the form to the monastery inbox. |
-| Build / deploy   | **GitHub Actions**                                   | Free CI minutes on public repos cover the occasional rebuild. |
+| Piece               | Service                                                                         | Why                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Static client       | **GitHub Pages**                                                                | Free, unlimited for public repos; deploys straight from CI.                         |
+| Image / media       | **Cloudflare R2** bucket                                                        | Free egress, generous free storage; S3-compatible API for Payload's media adapter.  |
+| Database            | **Neon** (Postgres) — or Railway / similar free tier                            | Neon free tier scales to zero; fine for a single-editor CMS.                        |
+| CMS runtime         | Any free Node host (Railway, Render, Fly.io free app, Payload Cloud free, etc.) | Only needs to be reachable when the one editor logs in; cold starts are acceptable. |
+| Form handler        | **Cloudflare Worker**                                                           | Free 100 k req/day; decouples the contact form from CMS uptime.                     |
+| Transactional email | **Resend** free tier (3 k/mo, 100/day) — fallback Brevo (300/day)               | Worker calls Resend's API to forward the form to the monastery inbox.               |
+| Build / deploy      | **GitHub Actions**                                                              | Free CI minutes on public repos cover the occasional rebuild.                       |
 
 Constraints this places on design choices:
 - The CMS host **may sleep** between sessions — the editor flow must tolerate cold starts; the public site never depends on it being up.
@@ -71,26 +83,46 @@ visitor (types email + message)
 ```
 
 - **"Our email server" = our domain on Resend.** Resend is the SMTP infrastructure, but `From:` and the DKIM/SPF authority both live on `manastirea-saharna.md`. To the recipient it's just a regular email from our domain.
-- **Worker, not the Payload server** — the form must work even when the CMS host is asleep, and the Resend API key stays off the static site.
+- **Recipient address.** We do not provision an inbox for the monastery — `To:` is whatever email address they already use (personal Gmail, hosting-provider mailbox, anything that can receive mail). The Worker reads this from an env var, so changing the recipient later is a one-line config update with no code change.
+- **Cloudflare Worker, not the Payload server** — the public form has no runtime dependency on the CMS. The Worker has zero cold start, exposes a single hardened endpoint (Turnstile + honeypot) rather than the CMS admin surface, keeps the Resend API key off both the static site and the CMS process, and stays up when the CMS host sleeps or is restarted.
 - **Anti-spam** — Cloudflare Turnstile + a hidden honeypot, both verified server-side in the Worker before any email is sent.
 - **One-time setup** — verify the sending domain in Resend (DNS: SPF + DKIM records).
 - **No storage** — the email is the only record. The Worker doesn't persist submissions and the Payload database is not involved.
+
+### Alternatives considered
+
+- **Payload `sendEmail()` (CMS-hosted form handler)** — viable, removes one service. Rejected because the public form would then depend on the CMS host being awake; on a free-tier Node host, the first submission after idle waits 30–60 s for Payload to boot, and the CMS endpoint becomes a public POST target sharing process and rate-limit budget with the admin. Worth reconsidering if the CMS ever migrates to an always-on tier.
+- **Gmail SMTP from a dedicated account + monastery-side whitelist** — minimum-effort path: no DNS work, no vendor signup, monastery adds one filter rule ("never send to spam, from: this address"). Rejected as the default because (a) Workers can't open outbound SMTP, so it forces the Payload route and inherits the cold-start problem, (b) personal Gmail is not intended for automated transactional mail and the account can be throttled or suspended, (c) deliverability hinges on the recipient-side filter, which is fragile across mailbox migrations.
+- **Zoho Mail free SMTP** — clean DKIM signing on our domain, $0, no Resend dependency. Preferred fallback if Resend goes away and we want a non-Resend relay.
 
 ## Email sending
 
 The Worker sends mail through an HTTP-based provider — Cloudflare Workers can't open outbound SMTP connections, so SMTP libraries are off the table. Free tiers that actually exist in 2026:
 
-| Service        | Free tier               | Send from our domain | Notes                          |
-| -------------- | ----------------------- | -------------------- | ------------------------------ |
-| **Resend**     | 3 k / mo, 100 / day     | yes (SPF + DKIM)     | Default pick — cleanest API.   |
-| **Brevo**      | 300 / day forever       | yes (SPF + DKIM)     | Documented fallback.           |
-| **MailerSend** | 3 k / mo                | yes (SPF + DKIM)     | Similar profile to Resend.     |
-| MailChannels   | ~~free for CF Workers~~ | —                    | Killed mid-2024. Skip.         |
+| Service        | Free tier               | Send from our domain | Notes                        |
+| -------------- | ----------------------- | -------------------- | ---------------------------- |
+| **Resend**     | 3 k / mo, 100 / day     | yes (SPF + DKIM)     | Default pick — cleanest API. |
+| **Brevo**      | 300 / day forever       | yes (SPF + DKIM)     | Documented fallback.         |
+| **MailerSend** | 3 k / mo                | yes (SPF + DKIM)     | Similar profile to Resend.   |
+| MailChannels   | ~~free for CF Workers~~ | —                    | Killed mid-2024. Skip.       |
 
 - **Volume reality:** a monastery contact form sees maybe 5–50 submissions/month — the free-tier limits give 2–3 orders of magnitude headroom. The realistic risk is **provider deprecation** (as MailChannels showed), not volume.
 - **Swap cost is contained:** the Worker is the only piece that knows the provider. Migrating off Resend = change the HTTP endpoint + JSON body shape, ~30 lines. The static site and the CMS are unaffected.
 - **One-time DNS:** add 2–3 TXT records (SPF, DKIM, optionally DMARC) for `manastirea-saharna.md`. Resend/Brevo give the exact values. Without this, mail lands in spam or gets refused. DNS lives in Cloudflare alongside R2 — already set up.
-- **Escape hatch:** if running a Worker ever feels like too much, **Web3Forms** or **Formsubmit.co** absorb the whole form-to-email pipeline for free (POST the form, they email you). Trade-off: `From:` becomes their domain; `Reply-To` still works so the conversation flow is identical. Strictly less control, strictly less infra.
+- **Deliverability fallback:** even with SPF + DKIM correctly configured, mail to a low-reputation domain occasionally lands in spam on first contact. A one-time filter rule on the monastery's inbox (Gmail: *Settings → Filters → From: `noreply@manastirea-saharna.md` → Never send to spam*) guarantees delivery without further DNS or code changes. Worth including in the handover notes for the monastery.
+
+### Quota headroom
+
+The relevant free-tier ceilings against an expected load of ~50 form submissions/month:
+
+| Limit                           | Cap               | Expected use | Headroom  |
+| ------------------------------- | ----------------- | ------------ | --------- |
+| Resend emails                   | 3 000 / month     | ~50 / month  | ~60×      |
+| Resend emails (daily)           | 100 / day         | < 5 / day    | > 20×     |
+| Cloudflare Worker requests      | 100 000 / day     | < 10 / day   | > 10 000× |
+| Cloudflare Turnstile challenges | 1 000 000 / month | ~500 / month | ~2 000×   |
+
+The realistic failure mode is provider deprecation (as MailChannels showed), not exceeding any quota.
 
 ## Build & deploy flow
 
