@@ -76,6 +76,22 @@ visitor (types email + message)
 - **One-time setup** — verify the sending domain in Resend (DNS: SPF + DKIM records).
 - **No storage** — the email is the only record. The Worker doesn't persist submissions and the Payload database is not involved.
 
+## Email sending
+
+The Worker sends mail through an HTTP-based provider — Cloudflare Workers can't open outbound SMTP connections, so SMTP libraries are off the table. Free tiers that actually exist in 2026:
+
+| Service        | Free tier               | Send from our domain | Notes                          |
+| -------------- | ----------------------- | -------------------- | ------------------------------ |
+| **Resend**     | 3 k / mo, 100 / day     | yes (SPF + DKIM)     | Default pick — cleanest API.   |
+| **Brevo**      | 300 / day forever       | yes (SPF + DKIM)     | Documented fallback.           |
+| **MailerSend** | 3 k / mo                | yes (SPF + DKIM)     | Similar profile to Resend.     |
+| MailChannels   | ~~free for CF Workers~~ | —                    | Killed mid-2024. Skip.         |
+
+- **Volume reality:** a monastery contact form sees maybe 5–50 submissions/month — the free-tier limits give 2–3 orders of magnitude headroom. The realistic risk is **provider deprecation** (as MailChannels showed), not volume.
+- **Swap cost is contained:** the Worker is the only piece that knows the provider. Migrating off Resend = change the HTTP endpoint + JSON body shape, ~30 lines. The static site and the CMS are unaffected.
+- **One-time DNS:** add 2–3 TXT records (SPF, DKIM, optionally DMARC) for `manastirea-saharna.md`. Resend/Brevo give the exact values. Without this, mail lands in spam or gets refused. DNS lives in Cloudflare alongside R2 — already set up.
+- **Escape hatch:** if running a Worker ever feels like too much, **Web3Forms** or **Formsubmit.co** absorb the whole form-to-email pipeline for free (POST the form, they email you). Trade-off: `From:` becomes their domain; `Reply-To` still works so the conversation flow is identical. Strictly less control, strictly less infra.
+
 ## Build & deploy flow
 
 ```
