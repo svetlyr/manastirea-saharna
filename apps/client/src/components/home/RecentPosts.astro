@@ -1,0 +1,47 @@
+---
+import { getNewsItems } from "@data/news";
+import type { Locale } from "@i18n";
+import { getLocalizedPath, useTranslations } from "@i18n/utils";
+
+type Props = {
+  lang: Locale;
+};
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const posts = getNewsItems(lang);
+---
+
+<section class="bg-site-gray my-10" aria-labelledby="recent-posts-title">
+  <h2
+    id="recent-posts-title"
+    class="font-display text-church-green mb-[54px] text-center text-[44px] leading-none font-bold tracking-normal uppercase">
+    {t("home.recentPosts")}
+  </h2>
+  <div
+    class="mx-auto grid w-[min(1090px,calc(100%_-_20px))] grid-cols-3 gap-[60px] max-lg:grid-cols-1 max-lg:gap-7 max-sm:w-[calc(100%_-_32px)]">
+    {
+      posts.map((post) => (
+        <article class="flex min-w-0 flex-col bg-white shadow-[0_0_0_1px_#dedede]">
+          <div class={`post-image h-[204px] overflow-hidden ${post.imageClass}`} aria-hidden="true">
+            <span />
+          </div>
+          <div class="flex flex-1 flex-col px-5 pt-7 pb-8">
+            <h3 class="font-display text-church-green mb-5 text-[28px] leading-[1.07] font-bold tracking-normal">
+              <a class="text-inherit no-underline" href={getLocalizedPath(`/news/${post.id}`, lang)}>
+                {post.title}
+              </a>
+            </h3>
+            <time class="mb-3.5 block text-lg text-neutral-500">{post.date}</time>
+            <p class="m-0 text-[19px] leading-[1.55] text-neutral-500">{post.excerpt}</p>
+            <a
+              class="text-church-green mt-auto inline-block pt-5 text-base font-bold no-underline"
+              href={getLocalizedPath(`/news/${post.id}`, lang)}>
+              {t("news.readMore")}
+            </a>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>

@@ -1,0 +1,36 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { getLocaleFromUrl, getLocalizedPath, useTranslations } from "@i18n/utils";
+
+const lang = getLocaleFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout>
+  <main class="bg-site-gray min-h-[calc(100vh_-_116px)]">
+    <section class="flex min-h-[calc(100vh_-_116px)] items-center bg-white py-20">
+      <div class="mx-auto w-[min(760px,calc(100%_-_20px))] text-center max-sm:w-[calc(100%_-_32px)]">
+        <p class="text-gold m-0 text-base font-bold tracking-[0.28em] uppercase">{t("notFound.eyebrow")}</p>
+        <h1
+          class="font-display text-church-green mt-4 mb-5 text-[clamp(42px,6vw,78px)] leading-none font-bold tracking-normal">
+          {t("notFound.title")}
+        </h1>
+        <p class="mx-auto mt-0 mb-9 max-w-[560px] text-xl leading-8 text-neutral-600">
+          {t("notFound.description")}
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <a
+            class="border-church-green text-church-green inline-flex min-h-12 items-center justify-center rounded-md border-2 px-6 font-bold no-underline transition hover:bg-neutral-50"
+            href={getLocalizedPath("/", lang)}>
+            {t("notFound.home")}
+          </a>
+          <a
+            class="bg-church-green inline-flex min-h-12 items-center justify-center rounded-md px-6 font-bold text-white no-underline shadow-[0_12px_24px_rgb(8_115_61_/_22%)] transition hover:bg-[#065f32]"
+            href={getLocalizedPath("/#pomelnic-modal", lang)}>
+            {t("notFound.pomelnic")}
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

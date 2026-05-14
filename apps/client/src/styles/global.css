@@ -1,11 +1,244 @@
 @import "tailwindcss";
 
+@theme {
+    --color-church-green: #08733d;
+    --color-site-gray: #f2f2f2;
+    --color-gold: #e79d24;
+    --font-display: "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
+}
+
+@layer base {
+    body {
+        @apply m-0 bg-site-gray text-[#2d2d2d];
+        font-family: Georgia, "Times New Roman", serif;
+    }
+
+    html:has(#pomelnic-modal:target),
+    body:has(#pomelnic-modal:target) {
+        overflow: hidden;
+    }
+}
+
 @layer components {
     .px-global {
-        @apply mx-auto w-full max-w-[1920px] px-6;
+        @apply mx-auto w-full max-w-[1920px] px-5;
     }
 
     .escape-px {
         @apply relative left-1/2 w-screen -translate-x-1/2;
+    }
+
+    .flag {
+        @apply mr-1 inline-block h-3 w-5 align-[-1px] shadow-[0_0_0_1px_rgb(255_255_255_/_45%)];
+    }
+
+    .flag-ru {
+        background: linear-gradient(#fff 0 33%, #2450a4 33% 66%, #d82d28 66%);
+    }
+
+    .flag-ro {
+        background: linear-gradient(90deg, #0032a0 0 33%, #fcd116 33% 66%, #ce1126 66%);
+    }
+
+    .flag-us {
+        background:
+            linear-gradient(90deg, #244b9b 0 40%, transparent 40%),
+            repeating-linear-gradient(#c73737 0 8%, #fff 8% 16%);
+    }
+
+    .cathedral-mark {
+        @apply relative z-[1] ml-[14px] block h-[52px] w-[46px] text-[#2b2b2b];
+    }
+
+    .mark-dome,
+    .mark-body,
+    .cathedral-mark::before,
+    .cathedral-mark::after {
+        @apply absolute block content-[''];
+    }
+
+    .mark-body {
+        @apply right-1 bottom-0 left-1 h-8 border-[3px] border-t-0 border-current opacity-[0.82];
+        background: repeating-linear-gradient(90deg, transparent 0 7px, currentColor 7px 9px);
+    }
+
+    .mark-dome {
+        @apply bottom-7 rounded-t-full border-[3px] border-b-0 border-current;
+    }
+
+    .mark-dome-left {
+        @apply left-0.5 h-4 w-3.5;
+    }
+
+    .mark-dome-center {
+        @apply left-[15px] h-[22px] w-4;
+    }
+
+    .mark-dome-right {
+        @apply right-0.5 h-4 w-3.5;
+    }
+
+    .cathedral-mark::before {
+        @apply top-0 left-[22px] h-3.5 w-0.5 bg-current;
+    }
+
+    .cathedral-mark::after {
+        @apply top-1 left-[17px] h-0.5 w-3 bg-current shadow-[4px_-4px_0_-1px_currentColor];
+    }
+
+    .church-hero {
+        @apply overflow-hidden;
+        background: #101512;
+        isolation: isolate;
+    }
+
+    .hero-visual {
+        background: #101512
+            url("https://commons.wikimedia.org/wiki/Special:Redirect/file/Monasterio_de_Saharna%2C_Saharna%2C_Moldavia%2C_2023-11-01%2C_DD_49-51_HDR.jpg")
+            center / cover no-repeat;
+    }
+
+    .hero-visual::after {
+        @apply absolute inset-0 block content-[''];
+        background:
+            linear-gradient(90deg, rgb(0 0 0 / 62%) 0, rgb(0 0 0 / 18%) 44%, rgb(0 0 0 / 44%) 100%),
+            linear-gradient(to bottom, rgb(0 0 0 / 32%) 0, rgb(0 0 0 / 26%) 45%, rgb(0 0 0 / 76%) 100%);
+    }
+
+    .hero-video {
+        @apply absolute inset-0 h-full w-full object-cover;
+        filter: brightness(0.68) contrast(1.08) saturate(0.92);
+        transform: scale(1.02);
+    }
+
+    .post-image {
+        @apply relative;
+        background:
+            linear-gradient(rgb(255 255 255 / 10%), rgb(0 0 0 / 8%)),
+            linear-gradient(110deg, #d6b585, #6e2d24);
+    }
+
+    .post-image::before,
+    .post-image::after,
+    .post-image span {
+        @apply absolute block content-[''];
+    }
+
+    .post-image::before {
+        @apply inset-0 opacity-75;
+        background:
+            repeating-linear-gradient(90deg, rgb(255 255 255 / 38%) 0 18px, transparent 18px 44px),
+            linear-gradient(90deg, transparent 0 24%, rgb(10 10 10 / 20%) 24% 28%, transparent 28% 63%, rgb(10 10 10 / 20%) 63% 67%, transparent 67%);
+    }
+
+    .post-image::after {
+        @apply right-[16%] bottom-0 h-40 w-[74px] rounded-t-[40px] bg-[#161413] shadow-[-90px_14px_0_-8px_#24201f];
+    }
+
+    .post-image span {
+        @apply right-[18%] bottom-28 h-[60px] w-[60px] rounded-[50%_50%_8px_8px] bg-[#111] shadow-[-90px_12px_0_-8px_#151515];
+    }
+
+    .post-image-icons {
+        background:
+            linear-gradient(90deg, #b68b35 0 26%, #79371e 26% 30%, #d7aa47 30% 52%, #87351d 52% 56%, #c6963e 56%),
+            linear-gradient(#ecd38b, #8b3d24);
+    }
+
+    .post-image-icons::after,
+    .post-image-icons span {
+        @apply hidden;
+    }
+
+    .post-image-clergy {
+        background:
+            linear-gradient(90deg, #e8d0a4 0 22%, #c43f2e 22% 27%, #efe0bf 27% 58%, #c43f2e 58% 63%, #ead9b8 63%),
+            linear-gradient(#fff1cf, #bb8a49);
+    }
+
+    .history-visual {
+        background:
+            linear-gradient(rgb(0 0 0 / 62%), rgb(0 0 0 / 62%)),
+            radial-gradient(ellipse at 50% 100%, #dcc06e 0 15%, transparent 16%),
+            radial-gradient(ellipse at 50% 100%, #714829 0 28%, #1a1611 29% 100%);
+    }
+
+    .representation-image {
+        background:
+            linear-gradient(rgb(255 255 255 / 8%), rgb(0 0 0 / 8%)),
+            linear-gradient(135deg, #f2d5a0, #d39a4a 50%, #9c5f2c);
+    }
+
+    .representation-moscow {
+        background:
+            radial-gradient(circle at 50% 38%, #f8f0d8 0 11%, transparent 12%),
+            linear-gradient(160deg, #ffe7bc 0 42%, #96673b 42%),
+            linear-gradient(#f8c970, #8e4a2b);
+    }
+
+    .representation-gathering {
+        background:
+            linear-gradient(rgb(255 255 255 / 46%), rgb(255 255 255 / 46%)),
+            linear-gradient(180deg, #d6d6d0 0 48%, #55733d 48%),
+            repeating-linear-gradient(90deg, #151515 0 12px, #68405d 12px 18px, #101010 18px 34px);
+    }
+
+    .representation-new-york {
+        background:
+            radial-gradient(circle at 62% 16%, #4d6a56 0 11%, transparent 12%),
+            linear-gradient(120deg, #234b2c 0 24%, transparent 24%),
+            repeating-linear-gradient(90deg, #8a3028 0 72px, #f0e3d2 72px 86px),
+            linear-gradient(#45703e, #4a1f18);
+    }
+
+    .logo-tile {
+        @apply flex h-[86px] w-[86px] items-center justify-center bg-white text-center text-lg leading-none font-bold text-[#1b1b1b];
+    }
+
+    .logo-round {
+        @apply rounded-full bg-[#7395bb] text-5xl text-white;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-video {
+        display: none;
+    }
+}
+
+@media (max-width: 680px) {
+    @layer components {
+        .cathedral-mark {
+            @apply ml-0 h-10 w-8;
+        }
+
+        .cathedral-mark::before {
+            @apply left-[15px] h-3;
+        }
+
+        .cathedral-mark::after {
+            @apply top-1 left-3 w-2.5;
+        }
+
+        .mark-body {
+            @apply right-0.5 bottom-0 left-0.5 h-6 border-2;
+            background: repeating-linear-gradient(90deg, transparent 0 5px, currentColor 5px 7px);
+        }
+
+        .mark-dome {
+            @apply bottom-[22px] border-2;
+        }
+
+        .mark-dome-left {
+            @apply left-0 h-3 w-2.5;
+        }
+
+        .mark-dome-center {
+            @apply left-2.5 h-4 w-3;
+        }
+
+        .mark-dome-right {
+            @apply right-0 h-3 w-2.5;
+        }
     }
 }

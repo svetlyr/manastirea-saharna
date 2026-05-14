@@ -1,50 +1,60 @@
 import { isKey } from "@utils/types";
-import { defaultLocale, ui } from "@i18n";
+import { defaultLocale, locales, ui } from "@i18n";
 import type { AllTranslationKeys, Locale } from "@i18n";
 
-// TODO: refactor this shit
-
 function getNestedValue(obj: object | undefined, path: string): string | undefined {
-    const keys = path.split(".");
+  const keys = path.split(".");
 
-    let current = obj;
+  let current = obj;
 
-    for (const k of keys) {
-        if (current && typeof current === "object" && isKey(current, k)) {
-            current = current[k];
-        } else {
-            return undefined;
-        }
+  for (const k of keys) {
+    if (current && typeof current === "object" && isKey(current, k)) {
+      current = current[k];
+    } else {
+      return undefined;
     }
+  }
 
-    return typeof current === "string" ? current : undefined;
+  return typeof current === "string" ? current : undefined;
 }
 
 export function useTranslations(lang: Locale) {
-    return (key: AllTranslationKeys): string => {
-        const translation = getNestedValue(ui[lang], key);
+  return (key: AllTranslationKeys): string => {
+    const translation = getNestedValue(ui[lang], key);
 
-        if (translation) {
-            return translation;
-        }
+    if (translation) {
+      return translation;
+    }
 
-        const defaultTranslation = getNestedValue(ui[defaultLocale], key);
+    const defaultTranslation = getNestedValue(ui[defaultLocale], key);
 
-        if (defaultTranslation) {
-            return defaultTranslation;
-        }
+    if (defaultTranslation) {
+      return defaultTranslation;
+    }
 
-        return key;
-    };
+    return key;
+  };
 }
 export type UseTranslations = ReturnType<typeof useTranslations>;
 
 export function getLocaleFromUrl(url: URL): Locale {
-    const [, lang] = url.pathname.split("/");
+  const [, langSegment] = url.pathname.split("/");
+  const lang = langSegment?.replace(/\.html$/, "");
 
-    if (lang && lang in ui) {
-        return lang as Locale;
-    }
+  if (lang && lang in ui) {
+    return lang as Locale;
+  }
 
-    return defaultLocale;
+  return defaultLocale;
+}
+
+export function getLocalizedPath(path: string, locale: Locale): string {
+  const hashIndex = path.indexOf("#");
+  const hash = hashIndex === -1 ? "" : path.slice(hashIndex);
+  const pathname = (hashIndex === -1 ? path : path.slice(0, hashIndex)).replace(/\.html$/, "");
+  const segments = pathname.split("/").filter(Boolean);
+  const pathWithoutLocale = segments[0] && segments[0] in locales ? segments.slice(1) : segments;
+  const localizedPath = locale === defaultLocale ? pathWithoutLocale : [locale, ...pathWithoutLocale];
+
+  return `/${localizedPath.join("/")}${hash}`;
 }

@@ -1,30 +1,27 @@
 ---
-import { Image } from "astro:assets";
 import Navbar from "@components/Navbar";
-import { useTranslations } from "@i18n/utils";
-
-import Logo from "@assets/favicon.png";
+import { getLocaleFromUrl, useTranslations } from "@i18n/utils";
 
 import "@styles/global.css";
 
-const { lang } = Astro.locals;
+const lang = getLocaleFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
 <!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="darkreader-lock" />
-        <meta name="generator" content={Astro.generator} />
-        <meta name="description" content={t("main.title")} />
-        <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="darkreader-lock" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={t("main.description")} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <title>{t("main.title")}</title>
-    </head>
-    <body>
-        <Navbar path={Astro.url.pathname} lang={lang}> <Image src={Logo} alt="Logo" slot="logo" /> </Navbar>
-        <slot />
-    </body>
+    <title>{t("main.title")}</title>
+  </head>
+  <body>
+    <Navbar path={Astro.url.pathname} lang={lang} />
+    <slot />
+  </body>
 </html>

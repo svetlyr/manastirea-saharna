@@ -1,7 +1,7 @@
 /** @type {import("prettier").Config} */
 export default {
     semi: true,
-    tabWidth: 4,
+    tabWidth: 2,
     printWidth: 120,
     singleQuote: false,
     trailingComma: "all",

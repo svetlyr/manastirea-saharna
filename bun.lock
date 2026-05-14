@@ -1,5 +1,6 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "asg-club",
@@ -836,7 +837,7 @@
 
     "isexe": ["isexe@2.0.0", "", {}, "sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw=="],
 
-    "jiti": ["jiti@github:unjs/jiti#61fa803", { "bin": { "jiti": "./lib/jiti-cli.mjs" } }, "unjs-jiti-61fa803"],
+    "jiti": ["jiti@github:unjs/jiti#61fa803", { "bin": { "jiti": "./lib/jiti-cli.mjs" } }, "unjs-jiti-61fa803", "sha512-WlOM23HPXEKufi511V4gg5QnpzWVO6L4zjCkeO/cFx6SDZZj2u45z8zJ9lpAR8+5oMCHo7L97f5Esnca9WomDA=="],
 
     "js-yaml": ["js-yaml@4.1.0", "", { "dependencies": { "argparse": "^2.0.1" }, "bin": { "js-yaml": "bin/js-yaml.js" } }, "sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA=="],
 

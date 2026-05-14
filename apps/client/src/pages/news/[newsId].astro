@@ -1,0 +1,66 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { getNewsItem, newsItems } from "@data/news";
+import { getLocaleFromUrl, getLocalizedPath, useTranslations } from "@i18n/utils";
+
+export function getStaticPaths() {
+  return newsItems.map((item) => ({
+    params: { newsId: item.id },
+  }));
+}
+
+const lang = getLocaleFromUrl(Astro.url);
+const t = useTranslations(lang);
+const post = getNewsItem(Astro.params.newsId, lang);
+---
+
+<Layout>
+  <main class="bg-site-gray min-h-screen">
+    {
+      post ? (
+        <article>
+          <header class="bg-white py-16 max-sm:py-12">
+            <div class="mx-auto w-[min(980px,calc(100%_-_20px))] max-sm:w-[calc(100%_-_32px)]">
+              <a
+                class="text-church-green mb-8 inline-block text-base font-bold no-underline"
+                href={getLocalizedPath("/news", lang)}>
+                {t("news.backToNews")}
+              </a>
+              <span class="bg-gold mb-8 block h-0.5 w-[70px]" />
+              <h1 class="font-display text-church-green m-0 text-[clamp(38px,5vw,68px)] leading-none font-bold tracking-normal">
+                {post.title}
+              </h1>
+              <time class="mt-6 block text-xl text-neutral-500">{post.date}</time>
+            </div>
+          </header>
+
+          <div class="mx-auto w-[min(980px,calc(100%_-_20px))] py-12 max-sm:w-[calc(100%_-_32px)]">
+            <div class={`post-image mb-10 h-[360px] overflow-hidden ${post.imageClass}`} aria-hidden="true">
+              <span />
+            </div>
+            <div class="bg-white px-8 py-9 shadow-[0_0_0_1px_#dedede] max-sm:px-5">
+              <p class="m-0 text-[21px] leading-9 font-bold text-neutral-600">{post.excerpt}</p>
+              <div class="mt-8 grid gap-6 text-[19px] leading-8 text-neutral-600">
+                {post.body.map((paragraph) => (
+                  <p class="m-0">{paragraph}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </article>
+      ) : (
+        <section class="bg-white py-20">
+          <div class="mx-auto w-[min(760px,calc(100%_-_20px))] max-sm:w-[calc(100%_-_32px)]">
+            <h1 class="font-display text-church-green m-0 text-[clamp(38px,5vw,62px)] leading-none font-bold">
+              {t("news.notFoundTitle")}
+            </h1>
+            <p class="mt-5 text-xl leading-8 text-neutral-600">{t("news.notFoundDescription")}</p>
+            <a class="text-church-green mt-6 inline-block font-bold no-underline" href={getLocalizedPath("/news", lang)}>
+              {t("news.backToNews")}
+            </a>
+          </div>
+        </section>
+      )
+    }
+  </main>
+</Layout>
