@@ -1,19 +1,19 @@
 ---
-import Layout from "@layouts/Layout.astro";
 import { getAllPostSlugs, getPostBySlug } from "@data/posts";
 import { getLocaleFromUrl, getLocalizedPath, useTranslations } from "@i18n/utils";
+import Layout from "@layouts/Layout.astro";
 
 export async function getStaticPaths() {
   const slugs = await getAllPostSlugs();
 
   return slugs.map((slug) => ({
-    params: { newsId: slug },
+    params: { slug },
   }));
 }
 
 const lang = getLocaleFromUrl(Astro.url);
 const t = useTranslations(lang);
-const post = await getPostBySlug(Astro.params.newsId, lang);
+const post = await getPostBySlug(Astro.params.slug, lang);
 ---
 
 <Layout>
@@ -32,20 +32,22 @@ const post = await getPostBySlug(Astro.params.newsId, lang);
               <h1 class="font-display text-church-green m-0 text-[clamp(38px,5vw,68px)] leading-none font-bold tracking-normal">
                 {post.title}
               </h1>
-              <time class="mt-6 block text-xl text-neutral-500">{post.date}</time>
+              {post.date && <time class="mt-6 block text-xl text-neutral-500">{post.date}</time>}
             </div>
           </header>
 
           <div class="mx-auto w-[min(980px,calc(100%_-_20px))] py-12 max-sm:w-[calc(100%_-_32px)]">
-            {post.image ? (
-              <img class="mb-10 h-[360px] w-full object-cover" src={post.image.url} alt={post.image.alt} />
-            ) : (
-              <div class="post-image mb-10 h-[360px] overflow-hidden" aria-hidden="true">
-                <span />
-              </div>
-            )}
+            {
+              post.image ? (
+                <img class="mb-10 h-[360px] w-full object-cover" src={post.image.url} alt={post.image.alt} />
+              ) : (
+                <div class="post-image mb-10 h-[360px] overflow-hidden" aria-hidden="true">
+                  <span />
+                </div>
+              )
+            }
             <div class="bg-white px-8 py-9 shadow-[0_0_0_1px_#dedede] max-sm:px-5">
-              <p class="m-0 text-[21px] leading-9 font-bold text-neutral-600">{post.excerpt}</p>
+              {post.excerpt && <p class="m-0 text-[21px] leading-9 font-bold text-neutral-600">{post.excerpt}</p>}
               <div class="mt-8 grid gap-6 text-[19px] leading-8 text-neutral-600">
                 {post.body.map((paragraph) => (
                   <p class="m-0">{paragraph}</p>

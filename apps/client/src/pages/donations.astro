@@ -18,17 +18,21 @@ const bankDetails = [
 
 <Layout>
   <main class="bg-site-gray min-h-screen">
-    <section class="flex min-h-[calc(100vh_-_116px)] items-center py-16 max-sm:py-10" aria-labelledby="donations-title">
-      <div class="mx-auto w-[min(860px,calc(100%_-_20px))] max-sm:w-[calc(100%_-_32px)]">
+    <section class="bg-white py-16 max-sm:py-12" aria-labelledby="donations-title">
+      <div class="mx-auto w-[min(1120px,calc(100%_-_20px))] max-sm:w-[calc(100%_-_32px)]">
         <span class="bg-gold mb-8 block h-0.5 w-[70px]"></span>
-        <article class="bg-white p-7 shadow-[0_0_0_1px_#dedede] md:p-10">
-          <h1
-            id="donations-title"
-            class="font-display text-church-green m-0 text-center text-[clamp(42px,5vw,72px)] leading-none font-bold tracking-normal uppercase">
-            {t("donations.title")}
-          </h1>
+        <h1
+          id="donations-title"
+          class="font-display text-church-green m-0 text-[clamp(42px,5vw,72px)] leading-none font-bold tracking-normal uppercase">
+          {t("donations.title")}
+        </h1>
+      </div>
+    </section>
 
-          <div class="mt-9 grid gap-5 text-[19px] leading-8 text-neutral-600">
+    <section class="py-16 max-sm:py-10">
+      <div class="mx-auto w-[min(860px,calc(100%_-_20px))] max-sm:w-[calc(100%_-_32px)]">
+        <article class="bg-white p-7 shadow-[0_0_0_1px_#dedede] md:p-10">
+          <div class="grid gap-5 text-[19px] leading-8 text-neutral-600">
             <p class="m-0 text-xl font-bold text-neutral-800">{t("donations.greeting")}</p>
             <p class="m-0">{t("donations.message")}</p>
             <p class="m-0">{t("donations.detailsIntro")}</p>

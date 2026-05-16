@@ -1,5 +1,6 @@
 ---
 import Navbar from "@components/Navbar";
+import PomelnicModal from "@components/home/PomelnicModal.astro";
 import { getLocaleFromUrl, useTranslations } from "@i18n/utils";
 
 import "@styles/global.css";
@@ -22,6 +23,7 @@ const t = useTranslations(lang);
   </head>
   <body>
     <Navbar path={Astro.url.pathname} lang={lang} />
+    <PomelnicModal lang={lang} />
     <slot />
   </body>
 </html>

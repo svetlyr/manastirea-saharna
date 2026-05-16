@@ -158,9 +158,8 @@
 
     .history-visual {
         background:
-            linear-gradient(rgb(0 0 0 / 62%), rgb(0 0 0 / 62%)),
-            radial-gradient(ellipse at 50% 100%, #dcc06e 0 15%, transparent 16%),
-            radial-gradient(ellipse at 50% 100%, #714829 0 28%, #1a1611 29% 100%);
+            linear-gradient(rgb(0 0 0 / 48%), rgb(0 0 0 / 48%)),
+            url("/images/history-header.png") center / cover no-repeat;
     }
 
     .representation-image {
@@ -171,24 +170,20 @@
 
     .representation-moscow {
         background:
-            radial-gradient(circle at 50% 38%, #f8f0d8 0 11%, transparent 12%),
-            linear-gradient(160deg, #ffe7bc 0 42%, #96673b 42%),
-            linear-gradient(#f8c970, #8e4a2b);
+            linear-gradient(rgb(0 0 0 / 8%), rgb(0 0 0 / 8%)),
+            url("/images/representation-first.jpg") center / cover no-repeat;
     }
 
     .representation-gathering {
         background:
-            linear-gradient(rgb(255 255 255 / 46%), rgb(255 255 255 / 46%)),
-            linear-gradient(180deg, #d6d6d0 0 48%, #55733d 48%),
-            repeating-linear-gradient(90deg, #151515 0 12px, #68405d 12px 18px, #101010 18px 34px);
+            linear-gradient(rgb(0 0 0 / 8%), rgb(0 0 0 / 8%)),
+            url("/images/representation-middle.jpg") center / cover no-repeat;
     }
 
     .representation-new-york {
         background:
-            radial-gradient(circle at 62% 16%, #4d6a56 0 11%, transparent 12%),
-            linear-gradient(120deg, #234b2c 0 24%, transparent 24%),
-            repeating-linear-gradient(90deg, #8a3028 0 72px, #f0e3d2 72px 86px),
-            linear-gradient(#45703e, #4a1f18);
+            linear-gradient(rgb(0 0 0 / 8%), rgb(0 0 0 / 8%)),
+            url("/images/representation-third.jpg") center / cover no-repeat;
     }
 
     .logo-tile {

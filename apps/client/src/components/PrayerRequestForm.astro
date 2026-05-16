@@ -10,6 +10,9 @@ type Props = {
 
 const { idPrefix, lang, compact = false } = Astro.props;
 const t = useTranslations(lang);
+const web3FormsAccessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY;
+const formAction = web3FormsAccessKey ? "https://api.web3forms.com/submit" : "#";
+const redirectUrl = `${Astro.url.origin}${Astro.url.pathname}#pomelnic-form`;
 
 const inputClass =
   "mt-2 w-full rounded-md border border-neutral-200 bg-white px-4 py-3 text-base text-neutral-900 shadow-sm outline-none transition focus:border-church-green focus:ring-4 focus:ring-church-green/15";
@@ -17,7 +20,13 @@ const labelClass = "block text-sm font-bold text-neutral-800";
 const textareaClass = `${inputClass} max-h-[280px] min-h-[150px] resize-y`;
 ---
 
-<form class={compact ? "grid gap-4" : "grid gap-5"} action="#" method="post">
+<form class={compact ? "grid gap-4" : "grid gap-5"} action={formAction} method="post">
+  {web3FormsAccessKey && <input type="hidden" name="access_key" value={web3FormsAccessKey} />}
+  <input type="hidden" name="subject" value="Pomelnic nou de pe manastirea-saharna.md" />
+  <input type="hidden" name="from_name" value="Mănăstirea Saharna" />
+  <input type="hidden" name="redirect" value={redirectUrl} />
+  <input class="hidden" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" />
+
   <div class={compact ? "grid gap-4" : "grid gap-5 md:grid-cols-2"}>
     <label class={labelClass} for={`${idPrefix}-name`}>
       {t("pomelnic.name")}

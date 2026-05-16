@@ -12,9 +12,15 @@ const Navbar = component$<NavbarProps>(({ path, lang }) => {
   const t = useTranslations(lang);
   const normalizedPath = path.replace(/\.html$/, "");
   const isHome = normalizedPath === "/" || normalizedPath === `/${lang}`;
-  const newsPath = getLocalizedPath("/news", lang);
+  const newsPath = getLocalizedPath("/posts", lang);
   const donationsPath = getLocalizedPath("/donations", lang);
-  const isNews = normalizedPath === "/news" || normalizedPath === `/${lang}/news` || normalizedPath.includes("/news/");
+  const isNews =
+    normalizedPath === "/news" ||
+    normalizedPath === "/posts" ||
+    normalizedPath === `/${lang}/news` ||
+    normalizedPath === `/${lang}/posts` ||
+    normalizedPath.includes("/news/") ||
+    normalizedPath.includes("/posts/");
   const isDonations = normalizedPath === "/donations" || normalizedPath === `/${lang}/donations`;
   const navItems = [
     { key: "nav.home", href: getLocalizedPath("/", lang), active: isHome },

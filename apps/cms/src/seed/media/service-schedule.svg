@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Saharna monastery service schedule">
+  <rect width="1200" height="675" fill="#6d2f27"/>
+  <rect x="110" y="360" width="980" height="220" fill="#eadfce"/>
+  <rect x="170" y="260" width="190" height="320" fill="#7a2c24"/>
+  <rect x="505" y="210" width="190" height="370" fill="#7a2c24"/>
+  <rect x="840" y="260" width="190" height="320" fill="#7a2c24"/>
+  <path d="M170 260a95 95 0 0 1 190 0zM505 210a95 95 0 0 1 190 0zM840 260a95 95 0 0 1 190 0z" fill="#496a58"/>
+  <path d="M265 105l45 155h-90zM600 55l52 155H548zM935 105l45 155h-90z" fill="#20352d"/>
+  <rect x="220" y="410" width="85" height="170" fill="#351916"/>
+  <rect x="558" y="390" width="85" height="190" fill="#351916"/>
+  <rect x="895" y="410" width="85" height="170" fill="#351916"/>
+</svg>

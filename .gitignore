@@ -21,7 +21,7 @@ pnpm-debug.log*
 **/.env
 
 # keep client env
-!apps/client/.env
+# !apps/client/.env
 
 .cache/
 .eslintcache

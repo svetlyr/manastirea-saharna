@@ -32,17 +32,18 @@ Backend for editors to create and manage posts. Currently scaffolded (empty) —
 
 Goal: **zero recurring runtime cost.** Everything lives on free tiers.
 
-| Piece            | Service                                              | Why                                                          |
-| ---------------- | ---------------------------------------------------- | ------------------------------------------------------------ |
-| Static client    | **GitHub Pages**                                     | Free, unlimited for public repos; deploys straight from CI.  |
-| Image / media    | **Cloudflare R2** bucket                             | Free egress, generous free storage; S3-compatible API for Payload's media adapter. |
-| Database         | **Neon** (Postgres) — or Railway / similar free tier | Neon free tier scales to zero; fine for a single-editor CMS. |
-| CMS runtime      | Any free Node host (Railway, Render, Fly.io free app, Payload Cloud free, etc.) | Only needs to be reachable when the one editor logs in; cold starts are acceptable. |
-| Form handler     | **Cloudflare Worker**                                | Free 100 k req/day; decouples the contact form from CMS uptime. |
-| Transactional email | **Resend** free tier (3 k/mo, 100/day) — fallback Brevo (300/day) | Worker calls Resend's API to forward the form to the monastery inbox. |
-| Build / deploy   | **GitHub Actions**                                   | Free CI minutes on public repos cover the occasional rebuild. |
+| Piece               | Service                                                                         | Why                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Static client       | **GitHub Pages**                                                                | Free, unlimited for public repos; deploys straight from CI.                         |
+| Image / media       | **Cloudflare R2** bucket                                                        | Free egress, generous free storage; S3-compatible API for Payload's media adapter.  |
+| Database            | **Neon** (Postgres) — or Railway / similar free tier                            | Neon free tier scales to zero; fine for a single-editor CMS.                        |
+| CMS runtime         | Any free Node host (Railway, Render, Fly.io free app, Payload Cloud free, etc.) | Only needs to be reachable when the one editor logs in; cold starts are acceptable. |
+| Form handler        | **Cloudflare Worker**                                                           | Free 100 k req/day; decouples the contact form from CMS uptime.                     |
+| Transactional email | **Resend** free tier (3 k/mo, 100/day) — fallback Brevo (300/day)               | Worker calls Resend's API to forward the form to the monastery inbox.               |
+| Build / deploy      | **GitHub Actions**                                                              | Free CI minutes on public repos cover the occasional rebuild.                       |
 
 Constraints this places on design choices:
+
 - The CMS host **may sleep** between sessions — the editor flow must tolerate cold starts; the public site never depends on it being up.
 - Media URLs must be **public R2 URLs** baked into the static build, so the live site doesn't proxy through the CMS.
 - DB choice should support **scale-to-zero / generous free tier**; Neon is the default pick, but the schema stays portable (vanilla Postgres) so we can swap hosts without code changes.
@@ -80,12 +81,12 @@ visitor (types email + message)
 
 The Worker sends mail through an HTTP-based provider — Cloudflare Workers can't open outbound SMTP connections, so SMTP libraries are off the table. Free tiers that actually exist in 2026:
 
-| Service        | Free tier               | Send from our domain | Notes                          |
-| -------------- | ----------------------- | -------------------- | ------------------------------ |
-| **Resend**     | 3 k / mo, 100 / day     | yes (SPF + DKIM)     | Default pick — cleanest API.   |
-| **Brevo**      | 300 / day forever       | yes (SPF + DKIM)     | Documented fallback.           |
-| **MailerSend** | 3 k / mo                | yes (SPF + DKIM)     | Similar profile to Resend.     |
-| MailChannels   | ~~free for CF Workers~~ | —                    | Killed mid-2024. Skip.         |
+| Service        | Free tier               | Send from our domain | Notes                        |
+| -------------- | ----------------------- | -------------------- | ---------------------------- |
+| **Resend**     | 3 k / mo, 100 / day     | yes (SPF + DKIM)     | Default pick — cleanest API. |
+| **Brevo**      | 300 / day forever       | yes (SPF + DKIM)     | Documented fallback.         |
+| **MailerSend** | 3 k / mo                | yes (SPF + DKIM)     | Similar profile to Resend.   |
+| MailChannels   | ~~free for CF Workers~~ | —                    | Killed mid-2024. Skip.       |
 
 - **Volume reality:** a monastery contact form sees maybe 5–50 submissions/month — the free-tier limits give 2–3 orders of magnitude headroom. The realistic risk is **provider deprecation** (as MailChannels showed), not volume.
 - **Swap cost is contained:** the Worker is the only piece that knows the provider. Migrating off Resend = change the HTTP endpoint + JSON body shape, ~30 lines. The static site and the CMS are unaffected.

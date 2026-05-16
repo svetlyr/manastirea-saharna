@@ -3,7 +3,6 @@ import HomeFooter from "@components/home/HomeFooter.astro";
 import HomeHero from "@components/home/HomeHero.astro";
 import HomeQuote from "@components/home/HomeQuote.astro";
 import HistoryBand from "@components/home/HistoryBand.astro";
-import PomelnicModal from "@components/home/PomelnicModal.astro";
 import PomelnicSection from "@components/home/PomelnicSection.astro";
 import RecentPosts from "@components/home/RecentPosts.astro";
 import RepresentationSection from "@components/home/RepresentationSection.astro";
@@ -15,7 +14,6 @@ const lang = getLocaleFromUrl(Astro.url);
 
 <Layout>
   <main class="bg-site-gray overflow-hidden">
-    <PomelnicModal lang={lang} />
     <HomeHero lang={lang} />
     <HomeQuote lang={lang} />
     <RecentPosts lang={lang} />

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Paschal message">
+  <rect width="1200" height="675" fill="#d3a43f"/>
+  <rect x="0" y="395" width="1200" height="280" fill="#7b3a22"/>
+  <circle cx="600" cy="240" r="126" fill="#fff0bd"/>
+  <path d="M600 72v336M432 240h336" stroke="#7b3a22" stroke-width="42" stroke-linecap="round"/>
+  <path d="M250 675c65-145 186-222 350-222s285 77 350 222z" fill="#ead9b8"/>
+  <path d="M250 675c65-145 186-222 350-222s285 77 350 222z" fill="none" stroke="#c74331" stroke-width="48"/>
+</svg>

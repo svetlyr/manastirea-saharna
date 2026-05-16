@@ -1,0 +1,72 @@
+---
+import type { Locale } from "@i18n";
+import { getLocalizedPath } from "@i18n/utils";
+
+type Props = {
+  currentPage: number;
+  lang: Locale;
+  totalPages: number;
+};
+
+const { currentPage, lang, totalPages } = Astro.props;
+const previousPage = currentPage > 1 ? currentPage - 1 : null;
+const nextPage = currentPage < totalPages ? currentPage + 1 : null;
+const pageHref = (page: number) => getLocalizedPath(page === 1 ? "/posts" : `/posts/page/${page}`, lang);
+const visiblePages = Array.from(new Set([1, currentPage - 1, currentPage, currentPage + 1, totalPages]))
+  .filter((page) => page >= 1 && page <= totalPages)
+  .sort((a, b) => a - b);
+const paginationItems = visiblePages.map((page, index) => ({
+  gapBefore: index > 0 && page - (visiblePages[index - 1] || page) > 1,
+  page,
+}));
+---
+
+{
+  totalPages > 1 && (
+    <nav
+      class="mx-auto mt-12 flex w-[min(1090px,calc(100%_-_20px))] items-center justify-center gap-2 max-sm:w-[calc(100%_-_32px)]"
+      aria-label="Pagination">
+      {previousPage ? (
+        <a
+          class="inline-flex h-11 min-w-11 items-center justify-center rounded-md bg-white px-4 font-bold text-church-green no-underline"
+          href={pageHref(previousPage)}
+          aria-label="Previous page">
+          &lt;
+        </a>
+      ) : (
+        <span class="inline-flex h-11 min-w-11 items-center justify-center rounded-md bg-white/60 px-4 font-bold text-neutral-400">
+          &lt;
+        </span>
+      )}
+
+      {paginationItems.map(({ gapBefore, page }) => (
+        <>
+          {gapBefore && (
+            <span class="inline-flex h-11 min-w-11 items-center justify-center px-2 font-bold text-neutral-500">...</span>
+          )}
+          <a
+            class={`inline-flex h-11 min-w-11 items-center justify-center rounded-md px-4 font-bold no-underline ${
+              page === currentPage ? "bg-church-green text-white" : "bg-white text-church-green"
+            }`}
+            href={pageHref(page)}
+            aria-current={page === currentPage ? "page" : undefined}>
+            {page}
+          </a>
+        </>
+      ))}
+
+      {nextPage ? (
+        <a
+          class="inline-flex h-11 min-w-11 items-center justify-center rounded-md bg-white px-4 font-bold text-church-green no-underline"
+          href={pageHref(nextPage)}
+          aria-label="Next page">
+          &gt;
+        </a>
+      ) : (
+        <span class="inline-flex h-11 min-w-11 items-center justify-center rounded-md bg-white/60 px-4 font-bold text-neutral-400">
+          &gt;
+        </span>
+      )}
+    </nav>
+  )
+}

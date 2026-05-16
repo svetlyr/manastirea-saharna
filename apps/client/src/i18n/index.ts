@@ -107,23 +107,10 @@ export const ui = {
       quote: '"Să păstrăm vie credința prin rugăciune, milostenie și dragoste față de aproapele."',
       quoteAuthor: "- Obștea Mănăstirii Saharna",
       recentPosts: "Noutăți",
+      allNews: "Toate noutățile",
       historyTitle: "Mănăstirea Saharna este una dintre vetrele spirituale ale Moldovei",
       readMore: "Citește mai mult",
       representationTitle: "Viața mănăstirii și locurile de închinare de la Saharna",
-    },
-    posts: {
-      firstTitle: "Programul slujbelor pentru săptămâna curentă",
-      firstDate: "6 mai 2026",
-      firstExcerpt:
-        "Credincioșii sunt invitați să participe la Sfânta Liturghie, vecernie și celelalte rânduieli săvârșite la mănăstire.",
-      secondTitle: "Pelerini la izvorul și stânca de la Saharna",
-      secondDate: "4 mai 2026",
-      secondExcerpt:
-        "Pelerinii au urcat pe potecile mănăstirii și s-au rugat în locurile legate de tradiția duhovnicească a Saharnei.",
-      thirdTitle: "Lucrări de îngrijire în complexul monahal",
-      thirdDate: "4 mai 2026",
-      thirdExcerpt:
-        "Obștea continuă lucrările de întreținere a spațiilor de rugăciune și de primire pentru credincioși.",
     },
     representation: {
       moscow: "Biserica mănăstirii",
@@ -235,23 +222,10 @@ export const ui = {
       quote: '"Let us keep faith alive through prayer, mercy, and love for our neighbor."',
       quoteAuthor: "- The brotherhood of Saharna Monastery",
       recentPosts: "Recent Posts",
+      allNews: "All news",
       historyTitle: "Saharna Monastery is one of Moldova's spiritual landmarks",
       readMore: "Read More",
       representationTitle: "Monastic life and places of worship at Saharna",
-    },
-    posts: {
-      firstTitle: "Service schedule for the current week",
-      firstDate: "May 6, 2026",
-      firstExcerpt:
-        "The faithful are invited to attend the Divine Liturgy, Vespers, and the other services celebrated at the monastery.",
-      secondTitle: "Pilgrims at the spring and rock of Saharna",
-      secondDate: "May 4, 2026",
-      secondExcerpt:
-        "Pilgrims climbed the monastery paths and prayed in the places connected with Saharna's spiritual tradition.",
-      thirdTitle: "Care work across the monastic complex",
-      thirdDate: "May 4, 2026",
-      thirdExcerpt:
-        "The brotherhood continues maintenance work on the prayer spaces and reception areas for the faithful.",
     },
     representation: {
       moscow: "The monastery church",
@@ -363,22 +337,10 @@ export const ui = {
       quote: '"Будем хранить веру молитвой, милосердием и любовью к ближнему."',
       quoteAuthor: "- Братия монастыря Сахарна",
       recentPosts: "Последние новости",
+      allNews: "Все новости",
       historyTitle: "Монастырь Сахарна - одна из духовных святынь Молдовы",
       readMore: "Читать далее",
       representationTitle: "Монашеская жизнь и святыни Сахарны",
-    },
-    posts: {
-      firstTitle: "Расписание богослужений на текущую неделю",
-      firstDate: "6 мая 2026 г.",
-      firstExcerpt:
-        "Верующие приглашаются на Божественную литургию, вечерню и другие богослужения, совершаемые в монастыре.",
-      secondTitle: "Паломники у источника и скалы Сахарны",
-      secondDate: "4 мая 2026 г.",
-      secondExcerpt:
-        "Паломники поднялись по монастырским тропам и помолились в местах, связанных с духовной традицией Сахарны.",
-      thirdTitle: "Работы по уходу за монастырским комплексом",
-      thirdDate: "4 мая 2026 г.",
-      thirdExcerpt: "Братия продолжает работы по содержанию молитвенных помещений и мест приема верующих.",
     },
     representation: {
       moscow: "Монастырский храм",
