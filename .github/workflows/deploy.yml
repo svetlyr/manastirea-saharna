@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [dev]
   workflow_dispatch:
 
 permissions:
@@ -32,6 +32,12 @@ jobs:
 
       - name: Build client
         run: bun run build:client
+        env:
+          # PAYLOAD_API_URL: ${{ vars.PAYLOAD_API_URL }}
+          # PUBLIC_WEB3FORMS_ACCESS_KEY: ${{ vars.PUBLIC_WEB3FORMS_ACCESS_KEY }}
+
+          PAYLOAD_API_URL: https://manastirea-saharna.onrender.com/
+          PUBLIC_WEB3FORMS_ACCESS_KEY: 3438b4b0-5f5e-43c5-a078-80defe43e06a
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
