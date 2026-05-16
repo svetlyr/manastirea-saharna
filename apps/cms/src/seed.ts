@@ -267,7 +267,7 @@ const seed = async () => {
             content: ro.content.join("\n\n"),
             mainImage: media.id,
             publishedAt: post.publishedAt,
-            status: "published",
+            status: "published" as const,
         };
 
         const seededPost =

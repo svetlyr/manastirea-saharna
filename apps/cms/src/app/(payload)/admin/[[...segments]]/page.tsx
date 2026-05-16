@@ -7,9 +7,9 @@ import { importMap } from "../importMap.js";
 
 type Args = {
   params: Promise<{
-    segments?: string[];
+    segments: string[];
   }>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
+  searchParams: Promise<Record<string, string | string[]>>;
 };
 
 export const generateMetadata = ({ params, searchParams }: Args): Promise<Metadata> =>
