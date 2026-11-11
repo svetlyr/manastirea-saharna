@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sfânta Mănăstire Saharna — Schița A · Liniște</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+/* OD-LAYOUT-PRIMITIVES v1 — structure only: display, flex/grid, overflow, wrapping, ratio, geometry.
+   Put this @layer first; product CSS outside the layer wins ordinary layout rules.
+   Native hidden and closed-dialog states take precedence over component display rules. */
+@layer od-layout {
+  [hidden]:not([hidden="until-found" i]) { display: none !important; }
+  dialog:not([open]) { display: none !important; }
+
+  :where(.od-stack,.od-row,.od-row-top,.od-cluster,.od-grid,.od-field,.od-stat,.od-cell,.od-tile) > :where(*) { min-width: 0; }
+
+  /* containers */
+  .od-stack   { display: flex; flex-direction: column; gap: var(--od-gap, 8px); }
+  .od-row     { display: flex; align-items: center; gap: var(--od-gap, 8px); }
+  .od-row-top { display: flex; align-items: flex-start; gap: var(--od-gap, 8px); }
+  .od-cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--od-gap, 8px); }
+  .od-fill    { flex: 1 1 0; min-width: 0; }
+  .od-fixed   { flex: none; }
+  .od-grid    { display: grid; gap: var(--od-gap, 12px); grid-template-columns: repeat(var(--od-cols, 3), minmax(0, 1fr)); }
+
+  /* stacked information: each piece is its own line — never sibling inline spans */
+  .od-stat, .od-field, .od-cell { display: grid; gap: var(--od-gap, 2px); }
+  :where(.od-stat,.od-field,.od-cell) > :where(*) { display: block; }
+  .od-tile { display: grid; grid-template-rows: auto 1fr; }
+  :where(.od-tile) > :where(*) { display: block; }
+
+  /* media keeps its intrinsic ratio by default; never a distorted or cropped
+     cover by accident. height:auto lets the ratio win over an <img height="…">
+     attribute. Cropping to a uniform box is an explicit opt-in: set --od-ratio
+     AND add .od-media-cover together (per the core rule, only where a crop is
+     deliberate — tile thumbs, decorative fills — never on full-frame content). */
+  .od-media { display: block; width: 100%; height: auto; aspect-ratio: var(--od-ratio, auto); }
+  .od-media-cover { object-fit: cover; }
+
+  /* functional inline SVG icons opt into bounded geometry; content SVGs keep their own */
+  .od-icon { display: inline-block; inline-size: var(--od-icon-size, 1em); block-size: var(--od-icon-size, 1em); flex: none; }
+
+  /* data text only — authored copy is rewritten to its budget instead */
+  .od-truncate { display: block; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .od-clamp-2, .od-clamp-3 { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+  .od-clamp-2 { -webkit-line-clamp: 2; }
+  .od-clamp-3 { -webkit-line-clamp: 3; }
+  .od-lines-2 { min-height: calc(2 * 1.4em); }   /* block-level reservation for a shared baseline */
+  .od-nowrap  { white-space: nowrap; }
+  .od-keep    { word-break: keep-all; overflow-wrap: anywhere; }
+
+  /* screen skeleton (optional): bars take their own space, the middle scrolls — no padding guessed for chrome */
+  .od-screen { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; height: 100%; }
+  .od-scroll { overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
+
+  /* horizontal rail: the next item peeks at the edge; trailing room survives overflow */
+  .od-rail { display: flex; gap: var(--od-gap, 8px); overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none;
+             padding-inline: var(--od-rail-pad, 16px); scroll-padding-inline: var(--od-rail-pad, 16px); }
+  .od-rail::-webkit-scrollbar { display: none; }
+  :where(.od-rail) > :where(*) { flex: none; scroll-snap-align: start; }
+  :where(.od-rail) > :where(:last-child) { margin-inline-end: var(--od-rail-pad, 16px); }
+
+  .od-spacer { flex: none; visibility: hidden; pointer-events: none; }
+  .od-touch  { min-width: 44px; min-height: 44px; }
+}
+:root [hidden]:where(:not([hidden="until-found" i])) { display: none; }
+/* /OD-LAYOUT-PRIMITIVES v1 */
+
+/* ---------- Tokens: palette, type and spacing follow the original Saharna style guide ---------- */
+:root {
+  --forest: #253528; --forest-deep: #1B271E; --gold: #C4A24A; --gold-soft: #D9C48C; --gold-ink: #8A6D1F;
+  --bg: #F6F2E9; --bg-alt: #E8E0D0; --surface: #FBF9F4; --line: #CCC2B3; --field-line: #8F8573;
+  --text: #1A1208; --text-muted: #6B6254; --error: #B42318;
+  --on-dark: #F6F2E9; --on-dark-muted: rgba(246,242,233,.78); --on-dark-line: rgba(246,242,233,.2);
+  --band-bg: var(--forest); --footer-bg: var(--forest-deep);
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body: "Commissioner", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fw-display: 500; --fw-display-strong: 600;
+  --fs-eyebrow: .8125rem; --fs-ui: .9375rem; --fs-small: .9375rem; --fs-body: 1.0625rem; --fs-lead: 1.125rem; --fs-btn: .875rem;
+  --fs-h1: clamp(3rem, 6.7vw, 6rem); --fs-h2: clamp(2.5rem, 5vw, 4.5rem); --fs-h3: 1.875rem; --fs-h4: 1.5rem;
+  --fs-time: 2.25rem; --fs-stat: 3.75rem; --fs-quote: clamp(1.625rem, 2.6vw, 2.25rem);
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 20px; --s-6: 24px; --s-8: 32px; --s-10: 40px; --s-12: 48px; --s-16: 64px; --s-20: 80px; --s-28: 112px;
+  --wrap: 1280px; --pad: clamp(16px, 4vw, 32px); --section: clamp(64px, 9vw, 128px);
+  --header-h: 96px; --btn-h: 52px; --radius: 2px; --shadow: 0 25px 50px -12px rgba(26,18,8,.25);
+  --t: 300ms; --t-zoom: 1000ms; --ease: cubic-bezier(.2,.7,.2,1);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 var(--fs-body)/1.7 var(--font-body); -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, p, figure, blockquote, dl, dd, ul, ol { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+a { color: inherit; }
+img { max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.wrap { width: 100%; max-width: calc(var(--wrap) + 2 * var(--pad)); margin-inline: auto; padding-inline: var(--pad); }
+section[id] { scroll-margin-top: var(--header-h); }
+
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: var(--fw-display); line-height: 1; text-wrap: balance; }
+h1 em, h2 em { font-style: italic; font-weight: var(--fw-display); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); line-height: 1.2; }
+h4 { font-size: var(--fs-h4); line-height: 1.3; font-weight: var(--fw-display-strong); }
+.lead { font-size: var(--fs-lead); line-height: 1.75; color: var(--text-muted); max-width: 32rem; }
+
+.eyebrow { display: flex; align-items: center; gap: var(--s-3); font-size: var(--fs-eyebrow); font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); }
+.eyebrow-num { font: 700 1rem/1.5 var(--font-display); letter-spacing: 0; color: var(--gold-ink); }
+.eyebrow-rule { width: 40px; height: 1px; background: currentColor; opacity: .5; }
+.label { display: block; font-size: var(--fs-eyebrow); font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2); min-height: var(--btn-h); padding: 0 var(--s-6); border: 1px solid transparent; border-radius: var(--radius); font-size: var(--fs-btn); font-weight: 500; letter-spacing: .05em; text-transform: uppercase; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color var(--t) var(--ease), color var(--t) var(--ease), border-color var(--t) var(--ease); }
+.btn .od-icon { --od-icon-size: 16px; }
+.btn-gold { background: var(--gold); color: #1A1208; }
+.btn-gold:hover { background: var(--gold-soft); }
+.btn-forest { background: var(--forest); color: var(--on-dark); }
+.btn-forest:hover { background: var(--forest-deep); }
+.btn-light { background: #F6F2E9; color: #1A1208; }
+.btn-light:hover { background: #FFFFFF; }
+.btn-sm { min-height: 44px; padding: 0 var(--s-5); }
+.btn-block { width: 100%; }
+.tlink { display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px; font-size: 1rem; font-weight: 500; text-decoration: none; background: linear-gradient(var(--gold), var(--gold)) left calc(100% - 8px) / 100% 1px no-repeat; transition: background-size var(--t) var(--ease); }
+.tlink:hover { background-size: 100% 3px; }
+.tlink .od-icon { --od-icon-size: 16px; transition: transform var(--t) var(--ease); }
+.tlink:hover .od-icon { transform: translateX(4px); }
+
+/* ---------- top bar ---------- */
+.topbar { background: var(--forest-deep); color: var(--on-dark-muted); font-size: var(--fs-small); }
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--s-6); min-height: 44px; max-width: calc(1344px + 2 * var(--pad)); }
+.topbar a { text-decoration: none; }
+.topbar a:hover { color: var(--on-dark); text-decoration: underline; text-underline-offset: 4px; }
+.topbar-info { display: flex; align-items: center; gap: var(--s-8); }
+.topbar-item { display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px; }
+.topbar-item .od-icon { --od-icon-size: 16px; color: var(--gold); }
+.lang { display: flex; align-items: center; gap: var(--s-1); }
+.lang button { min-width: 36px; min-height: 36px; padding: 0 var(--s-2); background: transparent; border: 0; border-bottom: 1px solid transparent; color: inherit; font-size: .8125rem; font-weight: 500; letter-spacing: .1em; cursor: pointer; }
+.lang button:hover { color: var(--on-dark); }
+.lang button[aria-pressed="true"] { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* ---------- header ---------- */
+.header { position: sticky; top: 0; z-index: 30; background: var(--bg); border-bottom: 1px solid var(--line); }
+.header .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--s-8); min-height: var(--header-h); max-width: calc(1344px + 2 * var(--pad)); }
+.nav { display: flex; align-items: center; gap: var(--s-10); }
+.nav-end { justify-content: flex-end; }
+.navlink { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-ui); font-weight: 500; letter-spacing: .025em; text-decoration: none; background: linear-gradient(var(--gold), var(--gold)) left calc(100% - 6px) / 0 1px no-repeat; transition: background-size var(--t) var(--ease); }
+.navlink:hover { background-size: 100% 1px; }
+.brand { display: inline-flex; align-items: center; gap: var(--s-3); text-decoration: none; line-height: 1; }
+.brand img { display: block; height: 80px; width: auto; }
+.brand-name { display: grid; gap: 2px; }
+.brand-name small { font-size: .6875rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); }
+.brand-name strong { font: var(--fw-display-strong) 1.75rem/1 var(--font-display); }
+.menu-btn { display: none; align-items: center; gap: var(--s-2); min-height: 44px; padding: 0 var(--s-4); background: transparent; border: 1px solid currentColor; border-radius: var(--radius); font-size: var(--fs-btn); font-weight: 500; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; }
+.menu-btn .od-icon { --od-icon-size: 18px; }
+
+/* ---------- hero ---------- */
+.hero { position: relative; display: flex; align-items: flex-end; min-height: clamp(600px, 82svh, 920px); color: var(--on-dark); background: var(--forest-deep); isolation: isolate; }
+.hero-media { position: absolute; inset: 0; z-index: -1; overflow: hidden; background: var(--forest-deep) url("assets/hero-valley.jpg") center / cover no-repeat; }
+.hero-video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(27,39,30,.78) 0%, rgba(27,39,30,.42) 48%, rgba(27,39,30,.12) 100%), linear-gradient(180deg, rgba(27,39,30,.25) 0%, rgba(27,39,30,0) 30%); }
+.hero-inner { padding-block: var(--s-28) calc(var(--s-28) + var(--s-10)); }
+.hero .eyebrow { color: var(--gold-soft); }
+.hero .eyebrow-rule { width: 48px; opacity: 1; background: var(--gold); }
+.hero h1 { font-size: var(--fs-h1); margin-top: var(--s-6); max-width: 56rem; }
+.hero h1 em { display: block; font-weight: 400; color: #FFFFFF; }
+.hero-lead { margin-top: var(--s-8); max-width: 32rem; font-size: 1.25rem; font-weight: 300; line-height: 1.4; color: rgba(246,242,233,.92); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: var(--s-4); margin-top: var(--s-10); }
+.hero-credit { position: absolute; right: var(--pad); bottom: var(--s-3); font-size: .75rem; color: rgba(246,242,233,.7); }
+.video-toggle { display: inline-flex; align-items: center; min-height: 44px; margin-top: var(--s-6); padding: 0 var(--s-4); background: rgba(27,39,30,.6); border: 1px solid rgba(246,242,233,.6); border-radius: var(--radius); color: var(--on-dark); font-size: var(--fs-small); cursor: pointer; }
+
+/* next service card: floats over the lower edge of the hero, as in the original */
+.next-wrap { position: relative; z-index: 2; }
+.next { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--s-8); max-width: 672px; margin: calc(-1 * var(--s-20)) 0 0 auto; padding: var(--s-8); background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.next-when { display: grid; justify-items: center; gap: var(--s-2); padding-right: var(--s-8); border-right: 1px solid var(--line); }
+.next-when .label { letter-spacing: .2em; }
+.next-time { font: var(--fw-display-strong) 3rem/1 var(--font-display); white-space: nowrap; }
+.next-main { display: grid; gap: var(--s-1); }
+.next-main .label { color: var(--gold-ink); }
+.next-name { font: var(--fw-display-strong) 1.875rem/1.2 var(--font-display); }
+.next-rel { display: inline-flex; align-items: center; gap: var(--s-2); font-size: var(--fs-small); color: var(--text-muted); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--forest); flex: none; }
+
+/* ---------- sections ---------- */
+.section { padding-block: var(--section); }
+.section-alt { background: var(--bg-alt); }
+.section-band { background: var(--band-bg); color: var(--on-dark); }
+.section-band .eyebrow, .section-band .label { color: var(--on-dark-muted); }
+.section-band .eyebrow-num { color: var(--gold-soft); }
+.section-band .lead { color: var(--on-dark-muted); }
+.section-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s-8) var(--s-16); align-items: end; margin-bottom: var(--s-16); }
+.section-head h2 { margin-top: var(--s-6); }
+
+/* I. Prezentare */
+.intro { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s-16); align-items: start; }
+.intro h2 { margin-top: var(--s-6); }
+.founded { display: flex; align-items: center; gap: var(--s-3); margin-top: var(--s-8); font: italic var(--fw-display) 1.25rem/1.4 var(--font-display); color: var(--text-muted); }
+.founded::before { content: ""; width: 32px; height: 1px; background: var(--gold); }
+.prose { font-size: var(--fs-lead); line-height: 1.78; }
+.prose p + p { margin-top: var(--s-6); }
+.dropcap::first-letter { float: left; margin: 6px 12px 0 0; font: var(--fw-display-strong) 6rem/.8 var(--font-display); color: var(--forest); }
+.intro .tlink { margin-top: var(--s-8); }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-8); margin-top: var(--s-12); padding-top: var(--s-10); border-top: 1px solid var(--line); }
+.stat-num { font: var(--fw-display-strong) var(--fs-stat)/1 var(--font-display); color: var(--forest); white-space: nowrap; }
+.stat-label { margin-top: var(--s-2); font-size: var(--fs-small); color: var(--text-muted); }
+
+.mosaic { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: clamp(180px, 19vw, 280px); gap: var(--s-4); margin-top: var(--s-28); }
+.mosaic figure { position: relative; overflow: hidden; background: var(--bg-alt); border-radius: var(--radius); }
+.mosaic figure:first-child { grid-column: span 2; grid-row: span 2; }
+.mosaic img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform var(--t-zoom) var(--ease); }
+.mosaic figure:hover img { transform: scale(1.04); }
+.mosaic figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: var(--s-10) var(--s-4) var(--s-2); background: linear-gradient(rgba(26,18,8,0), rgba(26,18,8,.75)); color: #FFFFFF; font: italic var(--fw-display) 1.125rem/1.55 var(--font-display); }
+
+.quote { max-width: 56rem; margin: var(--s-28) auto 0; text-align: center; }
+.cross { display: block; width: 20px; height: 30px; margin: 0 auto var(--s-8); color: var(--gold); }
+.quote blockquote { font: italic var(--fw-display) var(--fs-quote)/1.25 var(--font-display); text-wrap: balance; }
+.quote figcaption { display: flex; align-items: center; justify-content: center; gap: var(--s-4); margin-top: var(--s-8); font-size: var(--fs-eyebrow); letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); }
+.quote figcaption::before, .quote figcaption::after { content: ""; width: 40px; height: 1px; background: var(--gold); }
+
+/* II. Cum ajungeți */
+.visit { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s-16); align-items: start; }
+.map { position: relative; isolation: isolate; aspect-ratio: 4 / 3; background: var(--bg-alt); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.section-alt .map { background: var(--surface); }
+.map iframe { display: block; width: 100%; height: 100%; border: 0; filter: sepia(.25); }
+.map-fallback { position: absolute; inset: 0; z-index: -1; display: grid; place-items: center; font-size: var(--fs-small); color: var(--text-muted); }
+.map-card { position: absolute; left: var(--s-4); bottom: var(--s-4); max-width: 296px; padding: var(--s-4) var(--s-5); background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.map-card strong { display: block; font: var(--fw-display-strong) 1.25rem/1.4 var(--font-display); }
+.map-card span { display: block; font-size: var(--fs-small); color: var(--text-muted); }
+.ways > li { padding-block: var(--s-6); border-top: 1px solid var(--line); }
+.ways > li:last-child { border-bottom: 1px solid var(--line); }
+.way-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-4); flex-wrap: wrap; }
+.way-meta { font-size: var(--fs-eyebrow); letter-spacing: .04em; color: var(--text-muted); }
+.ways p { margin-top: var(--s-2); font-size: 1rem; line-height: 1.6; color: var(--text-muted); }
+.visit .tlink { margin-top: var(--s-6); }
+.rules { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-8); margin-top: var(--s-20); padding: var(--s-8) var(--s-6); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.rules .od-icon { --od-icon-size: 24px; color: var(--gold-ink); }
+.rules h4 { margin-top: var(--s-3); }
+.rules p { margin-top: var(--s-1); font-size: var(--fs-small); line-height: 1.5; color: var(--text-muted); }
+
+/* III. Programul slujbelor */
+.program { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--s-16); align-items: start; }
+.tabs { display: flex; flex-wrap: wrap; gap: var(--s-8); border-bottom: 1px solid var(--on-dark-line); }
+.tab { min-height: 48px; padding: 0; margin-bottom: -1px; background: transparent; border: 0; border-bottom: 2px solid transparent; color: var(--on-dark-muted); font-size: var(--fs-eyebrow); font-weight: 600; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; transition: color var(--t) var(--ease), border-color var(--t) var(--ease); }
+.tab:hover { color: var(--on-dark); }
+.tab[aria-selected="true"] { color: var(--gold-soft); border-bottom-color: var(--gold); }
+.svc-list { --svc-time: var(--gold-soft); --svc-muted: var(--on-dark-muted); --svc-line: var(--on-dark-line); }
+.svc { display: grid; grid-template-columns: 112px 1fr auto; align-items: baseline; gap: var(--s-6); padding-block: var(--s-6); border-bottom: 1px solid var(--svc-line); }
+.svc-time { font: var(--fw-display-strong) var(--fs-time)/1 var(--font-display); color: var(--svc-time); white-space: nowrap; }
+.svc-name { display: block; font: var(--fw-display) 1.5rem/1.3 var(--font-display); }
+.svc-note { display: block; font-size: var(--fs-small); color: var(--svc-muted); }
+.svc-place { font-size: var(--fs-eyebrow); letter-spacing: .04em; color: var(--svc-muted); white-space: nowrap; }
+.sample-note { margin-top: var(--s-4); font-size: var(--fs-small); color: var(--on-dark-muted); }
+.feasts { padding: var(--s-8); background: rgba(27,39,30,.6); border: 1px solid var(--on-dark-line); border-top: 4px solid var(--gold); border-radius: var(--radius); }
+.feasts ul { margin-top: var(--s-4); }
+.feasts li { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-4); padding-block: var(--s-3); border-bottom: 1px solid var(--on-dark-line); font-size: var(--fs-small); }
+.feasts li:last-child { border-bottom: 0; }
+.feast-date { font: var(--fw-display) 1.125rem/1.5 var(--font-display); color: var(--gold-soft); white-space: nowrap; }
+.confess { margin-top: var(--s-10); }
+.confess p { margin-top: var(--s-3); font-size: var(--fs-small); line-height: 1.6; color: var(--on-dark-muted); }
+.confess .tlink { margin-top: var(--s-4); }
+
+/* IV. Pomelnic */
+.pomelnic { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s-16); align-items: start; }
+.pomelnic h2 { margin-top: var(--s-6); }
+.pomelnic .lead { margin-top: var(--s-8); }
+.steps { display: grid; gap: var(--s-5); margin-top: var(--s-10); counter-reset: step; }
+.steps li { display: grid; grid-template-columns: 32px 1fr; gap: var(--s-4); align-items: baseline; counter-increment: step; font-size: 1rem; line-height: 1.6; }
+.steps li::before { content: counter(step); font: var(--fw-display-strong) 1.5rem/1 var(--font-display); color: var(--gold-ink); }
+.card { padding: clamp(24px, 4vw, 48px); background: var(--surface); color: var(--text); border: 1px solid var(--line); border-top: 4px solid var(--gold); border-radius: var(--radius); box-shadow: var(--shadow); }
+.card-title { display: flex; align-items: center; justify-content: center; gap: var(--s-4); margin-bottom: var(--s-8); font-size: var(--fs-h3); }
+.card-title .cross { margin: 0; width: 14px; height: 21px; }
+.form { display: grid; gap: var(--s-6); }
+.form-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-6); }
+.field { display: grid; gap: var(--s-2); align-content: start; }
+.field label { font-size: var(--fs-eyebrow); font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); }
+.field input, .field select, .field textarea { width: 100%; min-height: 48px; padding: var(--s-3) 0; background: transparent; border: 0; border-bottom: 1px solid var(--field-line); border-radius: 0; font-size: 1rem; color: var(--text); transition: border-color var(--t) var(--ease); }
+.field textarea { min-height: 128px; padding: var(--s-3) var(--s-4); border: 1px solid var(--field-line); border-radius: var(--radius); resize: vertical; font: var(--fw-display) 1.25rem/1.6 var(--font-display); }
+.field input:hover, .field select:hover, .field textarea:hover { border-color: var(--text); }
+.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline-offset: 2px; border-color: var(--gold-ink); }
+.field ::placeholder { color: var(--text-muted); opacity: .75; }
+.field [aria-invalid="true"] { border-color: var(--error); border-width: 2px; }
+.field-error { font-size: var(--fs-small); font-weight: 500; color: var(--error); }
+.form-summary { padding: var(--s-4) var(--s-5); border: 1px solid var(--error); border-radius: var(--radius); font-size: var(--fs-small); color: var(--error); }
+.form-summary ul { margin-top: var(--s-2); list-style: disc; padding-left: var(--s-5); }
+.form-note { font-size: var(--fs-small); line-height: 1.5; color: var(--text-muted); }
+.form-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-4); }
+.form-foot .form-note { max-width: 18rem; }
+.success { text-align: center; }
+.success p { margin: var(--s-4) auto var(--s-6); max-width: 34rem; }
+
+/* V. Donații */
+.gifts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-6); }
+.gift { display: flex; flex-direction: column; align-items: flex-start; padding: var(--s-10); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.gift > .od-icon { --od-icon-size: 28px; color: var(--gold-ink); margin-bottom: var(--s-5); }
+.gift p { margin-top: var(--s-3); font-size: var(--fs-small); line-height: 1.6; color: var(--text-muted); }
+.gift .btn, .gift > .tlink { margin-top: var(--s-6); }
+.bank { width: 100%; margin-top: var(--s-6); display: grid; gap: var(--s-4); }
+.bank dt { font-size: .8125rem; color: var(--text-muted); }
+.bank dd { font: 400 .9375rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow-wrap: anywhere; }
+.iban { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); }
+.copy { display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px; padding: 0; background: transparent; border: 0; font: 500 var(--fs-small)/1 var(--font-body); color: var(--gold-ink); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.copy:hover { color: var(--text); }
+.copy .od-icon { --od-icon-size: 16px; }
+.raised { width: 100%; margin-top: var(--s-6); }
+.raised-bar { height: 4px; background: var(--bg-alt); border-radius: 2px; overflow: hidden; }
+.raised-bar span { display: block; width: 0; height: 100%; background: var(--gold); }
+.raised-row { display: flex; justify-content: space-between; gap: var(--s-4); margin-top: var(--s-2); font-size: .8125rem; color: var(--text-muted); }
+.verse { margin-top: var(--s-16); text-align: center; font: italic var(--fw-display) 1.5rem/1.35 var(--font-display); color: var(--text-muted); text-wrap: balance; }
+
+/* VI. Contacte */
+.contacts { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s-16); align-items: start; }
+.contacts h2 { margin-top: var(--s-6); font-size: clamp(2.5rem, 4.2vw, 3.75rem); }
+.contacts .lead { margin-top: var(--s-6); }
+.contact-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-10) var(--s-8); }
+.contact { padding-top: var(--s-5); border-top: 1px solid var(--line); }
+.contact dt { display: flex; align-items: center; gap: var(--s-2); font-size: var(--fs-eyebrow); font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); }
+.contact dt .od-icon { --od-icon-size: 16px; color: var(--gold-ink); }
+.contact dd { margin-top: var(--s-3); font-size: 1.125rem; line-height: 1.55; overflow-wrap: anywhere; }
+.contact a { text-decoration: none; background: linear-gradient(var(--gold), var(--gold)) left 100% / 100% 1px no-repeat; }
+.contact a:hover { background-size: 100% 3px; }
+
+/* footer */
+.footer { background: var(--footer-bg); color: var(--on-dark-muted); padding-block: var(--s-20) var(--s-8); font-size: var(--fs-small); }
+.footer-grid { display: grid; grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr)); gap: var(--s-12); }
+.footer-logo { display: block; height: 112px; width: auto; }
+.footer-about { margin-top: var(--s-6); max-width: 16rem; line-height: 1.6; }
+.footer h3 { font: 600 var(--fs-eyebrow)/1.4 var(--font-body); letter-spacing: .2em; text-transform: uppercase; color: var(--gold-soft); }
+.footer ul { margin-top: var(--s-4); }
+.footer li a { display: inline-flex; align-items: center; min-height: 36px; text-decoration: none; }
+.footer li a:hover { color: var(--on-dark); text-decoration: underline; text-underline-offset: 4px; }
+.footer-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-2) var(--s-8); margin-top: var(--s-16); padding-top: var(--s-6); border-top: 1px solid var(--on-dark-line); font-size: .75rem; color: rgba(246,242,233,.6); }
+
+/* menu dialog */
+.menu { width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: 0; border: 0; background: var(--forest-deep); color: var(--on-dark); }
+.menu::backdrop { background: rgba(26,18,8,.6); }
+.menu-inner { display: flex; flex-direction: column; min-height: 100%; padding: var(--s-4) var(--pad) var(--s-10); }
+.menu-top { display: flex; justify-content: space-between; align-items: center; }
+.menu-top img { height: 56px; width: auto; }
+.menu .menu-btn { display: inline-flex; }
+.menu nav { margin-top: var(--s-10); counter-reset: item; }
+.menu nav a { display: flex; align-items: baseline; gap: var(--s-4); padding-block: var(--s-4); border-bottom: 1px solid var(--on-dark-line); font: var(--fw-display) 2rem/1.2 var(--font-display); text-decoration: none; counter-increment: item; }
+.menu nav a::before { content: counter(item, upper-roman); min-width: 28px; font: 700 .875rem/1 var(--font-display); color: var(--gold); }
+.menu nav a:hover { color: var(--gold-soft); }
+.menu-foot { margin-top: auto; padding-top: var(--s-10); font-size: var(--fs-small); line-height: 1.7; color: var(--on-dark-muted); }
+.menu-foot .btn { margin-bottom: var(--s-6); }
+
+@media (max-width: 1100px) {
+  .header .wrap { grid-template-columns: 1fr auto; }
+  .header .nav-start, .header .navlink, .header .lang { display: none; }
+  .header .brand { order: -1; }
+  .header .menu-btn { display: inline-flex; }
+  .header .nav { gap: var(--s-3); }
+  .section-head, .intro, .visit, .program, .pomelnic, .contacts { grid-template-columns: minmax(0, 1fr); gap: var(--s-10); }
+  .section-head { margin-bottom: var(--s-12); }
+  .rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  :root { --header-h: 72px; --fs-stat: 2.75rem; }
+  .brand img { height: 56px; }
+  .hide-sm { display: none; }
+  .hero-inner { padding-block: var(--s-16) calc(var(--s-20) + var(--s-8)); }
+  .hero-lead { font-size: 1.125rem; }
+  .hero-actions .btn { flex: 1 1 100%; }
+  .next { grid-template-columns: auto 1fr; gap: var(--s-4) var(--s-5); padding: var(--s-5); margin-top: calc(-1 * var(--s-16)); }
+  .next-when { padding-right: var(--s-5); }
+  .next-time { font-size: 2.25rem; }
+  .next-name { font-size: 1.5rem; }
+  .next > .tlink { grid-column: 1 / -1; justify-self: start; }
+  .mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 40vw; margin-top: var(--s-16); }
+  .mosaic figure:first-child { grid-row: span 1; }
+  .quote { margin-top: var(--s-16); }
+  .stats { gap: var(--s-4); }
+  .rules, .gifts, .form-two, .contact-list, .footer-grid { grid-template-columns: minmax(0, 1fr); }
+  .rules { margin-top: var(--s-12); }
+  .tabs { gap: var(--s-5); }
+  .svc { grid-template-columns: 84px 1fr; gap: var(--s-1) var(--s-4); }
+  .svc-time { font-size: 1.75rem; }
+  .svc-place { grid-column: 2; white-space: normal; }
+  .gift { padding: var(--s-6); }
+  .form-foot .btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; }
+  .mosaic figure:hover img, .tlink:hover .od-icon { transform: none; }
+}
+
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></g></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M5 4h4l2 5-2.5 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></g></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17v-5l2-5h12l2 5v5H4zM4 12h16M6 17v2M18 17v2"/><circle cx="7.5" cy="14.5" r=".75"/><circle cx="16.5" cy="14.5" r=".75"/></g></symbol>
+    <symbol id="i-bus" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="13" rx="2"/><path d="M5 11h14M8 17v2M16 17v2"/></g></symbol>
+    <symbol id="i-group" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 19c0-3.3 2.7-5 6-5s6 1.7 6 5M16.5 14c2.6 0 4.5 1.4 4.5 4"/></g></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></g></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.500l3 3 5-6"/></g></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></g></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></g></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5"/></symbol>
+    <symbol id="i-bank" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M4 10l8-5 8 5M6 10v8M18 10v8M10 10v8M14 10v8M3 20h18"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 15h3"/></g></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></g></symbol>
+    <symbol id="i-silence" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M4 10v4h3l4 3V7l-4 3H4zM16 10l4 4M20 10l-4 4"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3v11H4z"/><circle cx="12" cy="13.5" r="3"/></g></symbol>
+    <symbol id="i-trail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20c4-1 2-5 6-6s3-4 5-6"/><circle cx="17" cy="5.5" r="1.75"/></g></symbol>
+    <symbol id="cross" viewBox="0 0 24 36"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M12 2v32M7 9h10M4 16h16M8 28l8-4"/></symbol>
+  </defs>
+</svg>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="topbar-info">
+      <span class="topbar-item"><svg class="od-icon" aria-hidden="true"><use href="#i-clock"/></svg><span>Deschis zilnic <span class="od-nowrap">08:00 – 20:00</span></span></span>
+      <a class="topbar-item hide-sm" href="tel:+37325478600"><svg class="od-icon" aria-hidden="true"><use href="#i-phone"/></svg><span class="od-nowrap">0254 78 600</span></a>
+    </div>
+    <div class="lang" role="group" aria-label="Limba">
+        <button type="button" data-lang="ro" aria-pressed="true">RO</button>
+        <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <span class="sr-only" role="status" data-lang-status></span>
+  </div>
+</div>
+
+<header class="header">
+  <div class="wrap">
+    <nav class="nav nav-start" aria-label="Principal">
+      <a class="navlink" href="#prezentare">Prezentare</a>
+      <a class="navlink" href="#vizita">Cum ajungeți</a>
+      <a class="navlink" href="#program">Programul slujbelor</a>
+    </nav>
+    <a class="brand" href="#top" aria-label="Sfânta Mănăstire Saharna — acasă"><img src="assets/logo.png" width="320" height="267" alt="Sigiliul Sfintei Mănăstiri Saharna"></a>
+    <nav class="nav nav-end" aria-label="Secundar">
+      <a class="navlink" href="#pomelnic">Pomelnic</a>
+      <a class="navlink" href="#contacte">Contacte</a>
+      <a class="btn btn-forest btn-sm" href="#donatii">Donații</a>
+      <button class="menu-btn" type="button" data-menu-open><svg class="od-icon" aria-hidden="true"><use href="#i-menu"/></svg><span>Meniu</span></button>
+    </nav>
+  </div>
+</header>
+
+<dialog class="menu" data-menu aria-label="Meniu">
+  <div class="menu-inner">
+    <div class="menu-top">
+      <img src="assets/logo.png" width="320" height="267" alt="">
+      <button class="menu-btn" type="button" data-menu-close><svg class="od-icon" aria-hidden="true"><use href="#i-close"/></svg><span>Închide</span></button>
+    </div>
+    <nav aria-label="Meniu">
+      <a href="#prezentare">Prezentare</a>
+      <a href="#vizita">Cum ajungeți</a>
+      <a href="#program">Programul slujbelor</a>
+      <a href="#pomelnic">Pomelnic</a>
+      <a href="#donatii">Donații</a>
+      <a href="#contacte">Contacte</a>
+    </nav>
+    <div class="menu-foot">
+      <a class="btn btn-gold" href="#donatii">Donații</a>
+      <p>MD-5431, s. Saharna, r. Rezina<br><span class="od-nowrap">0254 78 600</span> · info@manastirea-saharna.md</p>
+    </div>
+  </div>
+</dialog>
+
+<main>
+  <section class="hero" id="top" aria-label="Bun venit">
+    <div class="hero-media">
+      <!-- Drone panorama: put the film at assets/hero-drone.mp4 and uncomment the <source> line. The photo stays as the poster. -->
+      <video class="hero-video" data-hero-video autoplay muted loop playsinline poster="assets/hero-valley.jpg" aria-hidden="true" tabindex="-1">
+        <!-- <source src="assets/hero-drone.mp4" type="video/mp4"> -->
+      </video>
+    </div>
+    <div class="wrap hero-inner">
+      <p class="eyebrow"><span class="eyebrow-rule"></span><span>Raionul Rezina · Malul drept al Nistrului</span></p>
+      <h1>Casa Sfintei Treimi, <em>între stânci și ape</em></h1>
+      <p class="hero-lead">Un loc de rugăciune și de liniște, unde pelerinii vin de aproape două veacuri și jumătate să se închine Sfântului Macarie și Maicii Domnului.</p>
+      <div class="hero-actions">
+        <a class="btn btn-gold" href="#vizita"><svg class="od-icon" aria-hidden="true"><use href="#i-pin"/></svg><span>Planificați vizita</span></a>
+        <a class="btn btn-light" href="#pomelnic"><svg class="od-icon" aria-hidden="true"><use href="#i-doc"/></svg><span>Trimiteți un pomelnic</span></a>
+      </div>
+      <button class="video-toggle" type="button" data-video-toggle hidden><span data-video-label>Oprește filmul</span></button>
+    </div>
+    <span class="hero-credit">Foto: Andrei Szocs, CC BY-SA 4.0</span>
+  </section>
+  <div class="wrap next-wrap">
+    <div class="next">
+      <div class="next-when"><span class="label" data-next="day">Azi</span><span class="next-time" data-next="time">17:00</span></div>
+      <div class="next-main"><span class="label">Următoarea slujbă</span><span class="next-name" data-next="name">Vecernia</span><span class="next-rel"><span class="dot"></span><span data-next="rel">în curând</span></span></div>
+      <a class="tlink" href="#program">Tot programul <svg class="od-icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+
+  <section class="section" id="prezentare">
+    <div class="wrap">
+      <div class="intro">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-num">I</span><span>Prezentare</span><span class="eyebrow-rule"></span></p>
+          <h2>Casa Dumnezeieștii <em>Treimi</em></h2>
+          <p class="founded">Fondată în anul 1776</p>
+        </div>
+        <div>
+          <div class="prose">
+            <p class="dropcap">Mănăstirea Saharna se află pe malul drept al Nistrului, în raionul Rezina, și este una dintre cele mai vechi și mai cunoscute mănăstiri din Moldova. Aici se păstrează moaștele Sfântului Cuvios Macarie și icoana făcătoare de minuni a Maicii Domnului.</p>
+            <p>Liniștea pădurilor, apele care coboară printre stânci și cântarea slujbelor aduc an de an mii de pelerini.</p>
+          </div>
+          <a class="tlink" href="#vizita">Veniți la Saharna <svg class="od-icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <dl class="stats">
+            <div><dd class="stat-num">1776</dd><dt class="stat-label">Anul întemeierii</dt></div>
+            <div><dd class="stat-num">[nr.]</dd><dt class="stat-label">Viețuitori</dt></div>
+            <div><dd class="stat-num">365</dd><dt class="stat-label">Zile de rugăciune pe an</dt></div>
+          </dl>
+        </div>
+      </div>
+      <div class="mosaic">
+        <figure><img src="assets/church.jpg" width="1600" height="1066" loading="lazy" alt="Biserica principală a mănăstirii, cu turle verzi"><figcaption>Biserica Sfânta Treime</figcaption></figure>
+        <figure><img src="assets/valley-chapel-hill.jpg" width="1600" height="1200" loading="lazy" alt="Valea Saharnei văzută de pe dealul capelei"><figcaption>Valea Saharnei</figcaption></figure>
+        <figure><img src="assets/gate.jpg" width="1600" height="1191" loading="lazy" alt="Poarta de intrare în mănăstire"><figcaption>Poarta mănăstirii</figcaption></figure>
+        <figure><img src="assets/interior.jpg" width="1600" height="1240" loading="lazy" alt="Interiorul pictat al bisericii"><figcaption>Interiorul bisericii</figcaption></figure>
+        <figure><img src="assets/cave-skete.jpg" width="1600" height="1200" loading="lazy" alt="Schitul rupestru săpat în stâncă"><figcaption>Schitul rupestru</figcaption></figure>
+      </div>
+      <figure class="quote">
+        <svg class="cross" aria-hidden="true"><use href="#cross"/></svg>
+        <blockquote>„Cel ce trece pragul acestei sfinte mănăstiri primește binecuvântarea Sfintei Treimi, iar Maica Domnului îl întâmpină ca pe un fiu așteptat.”</blockquote>
+        <figcaption>Cuvânt de bun venit pentru pelerini</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="vizita">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-num">II</span><span>Cum ajungeți</span><span class="eyebrow-rule"></span></p>
+          <h2>Drumul spre Saharna</h2>
+        </div>
+        <p class="lead">Mănăstirea se află la aproximativ 110 km de Chișinău, în satul Saharna. Porțile sunt deschise zilnic între orele 08:00 și 20:00.</p>
+      </div>
+      <div class="visit">
+        <div class="map">
+          <div class="map-fallback">Hartă Google Maps</div>
+          <iframe title="Harta: Mănăstirea Saharna" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=M%C4%83n%C4%83stirea+Saharna&output=embed"></iframe>
+          <div class="map-card"><strong>Mănăstirea Saharna</strong><span>MD-5431, s. Saharna, r. Rezina</span></div>
+        </div>
+        <div>
+          <ul class="ways">
+            <li><div class="way-head"><h4>Cu mașina</h4><span class="way-meta">≈ 1 h 45 min · Chișinău – Orhei – Rezina</span></div><p>Parcare gratuită la intrarea în mănăstire.</p></li>
+            <li><div class="way-head"><h4>Cu autobuzul</h4><span class="way-meta">Gara de Nord · cursa spre Rezina</span></div><p>Curse regulate spre Rezina; de acolo, taxi sau microbuz local până în satul Saharna.</p></li>
+            <li><div class="way-head"><h4>Pelerinaj organizat</h4><span class="way-meta">Grupuri · cu programare</span></div><p>Pentru grupuri, vă rugăm să anunțați sosirea la secretariat cu câteva zile înainte.</p></li>
+          </ul>
+          <a class="tlink" href="https://www.google.com/maps/search/?api=1&query=M%C4%83n%C4%83stirea+Saharna" target="_blank" rel="noopener">Deschide în Google Maps <svg class="od-icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+      <div class="rules">
+        <div><svg class="od-icon" aria-hidden="true"><use href="#i-user"/></svg><h4>Ținută cuviincioasă</h4><p>Umeri și genunchi acoperiți; femeile, cu capul acoperit în biserică.</p></div>
+        <div><svg class="od-icon" aria-hidden="true"><use href="#i-silence"/></svg><h4>Liniște</h4><p>Vorbiți încet și opriți sunetul telefonului pe teritoriul mănăstirii.</p></div>
+        <div><svg class="od-icon" aria-hidden="true"><use href="#i-camera"/></svg><h4>Fotografii</h4><p>Fotografierea în timpul slujbelor se face doar cu binecuvântare.</p></div>
+        <div><svg class="od-icon" aria-hidden="true"><use href="#i-trail"/></svg><h4>Schitul și izvoarele</h4><p>Traseul spre schitul rupestru durează cca. 20 de minute pe jos.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-band" id="program">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-num">III</span><span>Programul slujbelor</span><span class="eyebrow-rule"></span></p>
+          <h2>Rânduiala rugăciunii</h2>
+        </div>
+        <p class="lead">Slujbele se oficiază în fiecare zi a anului. În zilele de sărbătoare programul se poate schimba — vă rugăm să verificați anunțurile sau să sunați la secretariat.</p>
+      </div>
+      <div class="program">
+        <div data-schedule>
+          <div class="tabs" role="tablist" aria-label="Zilele săptămânii">
+            <button class="tab" type="button" role="tab" id="tab-weekday" data-tab="weekday" aria-selected="true" aria-controls="schedule-panel">Luni – Sâmbătă</button>
+            <button class="tab" type="button" role="tab" id="tab-sunday" data-tab="sunday" aria-selected="false" aria-controls="schedule-panel" tabindex="-1">Duminica</button>
+            <button class="tab" type="button" role="tab" id="tab-feast" data-tab="feast" aria-selected="false" aria-controls="schedule-panel" tabindex="-1">Sărbători mari</button>
+          </div>
+          <div role="tabpanel" id="schedule-panel" aria-labelledby="tab-weekday">
+            <ul class="svc-list" data-schedule-list>
+              <li class="svc"><time class="svc-time" datetime="06:00">06:00</time><div class="svc-body"><strong class="svc-name">Miezonoptica și Utrenia</strong><span class="svc-note">Slujba de dimineață</span></div><span class="svc-place">Biserica mare</span></li>
+              <li class="svc"><time class="svc-time" datetime="08:30">08:30</time><div class="svc-body"><strong class="svc-name">Sfânta Liturghie</strong><span class="svc-note">Pomenirea pomelnicelor</span></div><span class="svc-place">Biserica mare</span></li>
+              <li class="svc"><time class="svc-time" datetime="17:00">17:00</time><div class="svc-body"><strong class="svc-name">Vecernia</strong><span class="svc-note">Urmată de spovedanie</span></div><span class="svc-place">Biserica mare</span></li>
+            </ul>
+          </div>
+          <p class="sample-note">Ore orientative — de confirmat cu secretariatul mănăstirii.</p>
+        </div>
+        <aside>
+          <div class="feasts">
+            <h4>Hramuri și zile de pomenire</h4>
+            <ul>
+              <li><span>Duminica Sfintei Treimi</span><span class="feast-date">Hram</span></li>
+              <li><span>Sfântul Cuvios Macarie</span><span class="feast-date">[DATA]</span></li>
+              <li><span>Icoana Maicii Domnului</span><span class="feast-date">[DATA]</span></li>
+              <li><span>Adormirea Maicii Domnului</span><span class="feast-date">15 aug.</span></li>
+            </ul>
+          </div>
+          <div class="confess">
+            <h4>Spovedanie și Taine</h4>
+            <p>Spovedania se face după Vecernie sau înainte de Sfânta Liturghie. Pentru Botez, Cununie și Maslu vă rugăm să vă programați la secretariat.</p>
+            <a class="tlink" href="#contacte">Contactați secretariatul <svg class="od-icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pomelnic">
+    <div class="wrap pomelnic">
+      <div>
+        <p class="eyebrow"><span class="eyebrow-num">IV</span><span>Pomelnic</span><span class="eyebrow-rule"></span></p>
+        <h2>Trimiteți pomelnicul online</h2>
+        <p class="lead">Numele celor dragi, vii și adormiți, vor fi pomenite de părinții mănăstirii la Sfânta Liturghie.</p>
+        <ol class="steps">
+          <li><span>Alegeți felul pomenirii — la Liturghie, sărindar sau acatist.</span></li>
+          <li><span>Scrieți numele, câte unul pe rând, separat pentru vii și pentru adormiți.</span></li>
+          <li><span>Veți primi o confirmare pe email după ce pomelnicul a fost primit.</span></li>
+        </ol>
+      </div>
+      <div class="card">
+        <form class="form" data-pform novalidate>
+          <h3 class="card-title"><svg class="cross" aria-hidden="true"><use href="#cross"/></svg><span>Pomelnic</span></h3>
+          <div class="form-summary" data-form-summary tabindex="-1" role="alert" hidden></div>
+          <div class="form-two">
+            <div class="field"><label for="f-name">Numele dvs. *</label><input id="f-name" type="text" autocomplete="name" aria-describedby="f-name-err"><span class="field-error" id="f-name-err" hidden></span></div>
+            <div class="field"><label for="f-mail">Email *</label><input id="f-mail" type="email" autocomplete="email" aria-describedby="f-mail-err"><span class="field-error" id="f-mail-err" hidden></span></div>
+          </div>
+          <div class="field"><label for="f-type">Felul pomenirii</label>
+            <select id="f-type"><option>Pomenire la Sfânta Liturghie</option><option>Sărindar</option><option>Acatist</option></select>
+          </div>
+          <div class="form-two">
+            <div class="field"><label for="f-vii">Pentru cei vii</label><textarea id="f-vii" placeholder="Ioan&#10;Maria" aria-describedby="f-vii-err"></textarea><span class="field-error" id="f-vii-err" hidden></span></div>
+            <div class="field"><label for="f-adorm">Pentru cei adormiți</label><textarea id="f-adorm" placeholder="Gheorghe&#10;Elena"></textarea></div>
+          </div>
+          <div class="field"><label for="f-msg">Mesaj (opțional)</label><input id="f-msg" type="text" placeholder="O rugăminte sau o intenție anume"></div>
+          <div class="form-foot">
+            <p class="form-note">Câmpurile cu * sunt obligatorii. Datele sunt folosite doar pentru pomenire și confirmare.</p>
+            <button class="btn btn-forest" type="button" data-form-send><svg class="od-icon" aria-hidden="true"><use href="#i-doc"/></svg><span>Trimite pomelnicul</span></button>
+          </div>
+        </form>
+        <div class="success" data-form-success tabindex="-1" hidden>
+          <svg class="cross" aria-hidden="true"><use href="#cross"/></svg>
+          <h3>Pomelnicul a fost trimis</h3>
+          <p>Vă mulțumim. Numele vor fi pomenite la cea mai apropiată Sfântă Liturghie.</p>
+          <button class="tlink" type="button" data-form-again style="border:0;cursor:pointer">Trimiteți încă un pomelnic</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="donatii">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-num">V</span><span>Donații</span><span class="eyebrow-rule"></span></p>
+          <h2>Sprijiniți sfânta mănăstire</h2>
+        </div>
+        <p class="lead">Mănăstirea se întreține din jertfa credincioșilor. Fiecare dar ajută la purtarea de grijă a bisericilor, a pelerinilor și a celor aflați în nevoie.</p>
+      </div>
+      <div class="gifts">
+        <article class="gift">
+          <svg class="od-icon" aria-hidden="true"><use href="#i-bank"/></svg>
+          <h3>Transfer bancar</h3>
+          <p>Donații în lei, euro sau dolari, direct în contul mănăstirii.</p>
+          <dl class="bank">
+            <div><dt>Beneficiar</dt><dd>[DENUMIREA OFICIALĂ]</dd></div>
+            <div><dt>IBAN (MDL)</dt><dd class="iban"><span>MD00 XX00 0000 0000 0000 0000</span><button class="copy" type="button" data-copy="MD00XX000000000000000000"><svg class="od-icon" aria-hidden="true"><use href="#i-copy"/></svg><span data-copy-label>Copiază IBAN</span></button></dd></div>
+            <div><dt>Banca</dt><dd>[BANCA] · BIC [XXXXMD2X]</dd></div>
+          </dl>
+        </article>
+        <article class="gift">
+          <svg class="od-icon" aria-hidden="true"><use href="#i-card"/></svg>
+          <h3>PayPal</h3>
+          <p>Donație online cu cardul sau din contul PayPal, din orice țară.</p>
+          <a class="btn btn-gold btn-block" href="https://www.paypal.com/" target="_blank" rel="noopener">Donează prin PayPal</a>
+        </article>
+        <article class="gift">
+          <svg class="od-icon" aria-hidden="true"><use href="#i-pin"/></svg>
+          <h3>La mănăstire</h3>
+          <p>Puteți lăsa darul la pangarul mănăstirii, unde se primesc și pomelnicele scrise de mână.</p>
+          <a class="tlink" href="#contacte">Programul de vizită <svg class="od-icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </article>
+        <article class="gift">
+          <svg class="od-icon" aria-hidden="true"><use href="#i-heart"/></svg>
+          <h3>Lucrări în curs</h3>
+          <p>Restaurarea acoperișului bisericii de vară și amenajarea spațiilor pentru primirea pelerinilor.</p>
+          <div class="raised">
+            <div class="raised-bar" aria-hidden="true"><span></span></div>
+            <div class="raised-row"><span>Strâns: [SUMA STRÂNSĂ]</span><span>din [SUMA ȚINTĂ]</span></div>
+          </div>
+        </article>
+      </div>
+      <p class="verse">„Dătătorul de bună voie îl iubește Dumnezeu.” — 2 Corinteni 9, 7</p>
+    </div>
+  </section>
+
+  <section class="section" id="contacte">
+    <div class="wrap contacts">
+      <div>
+        <p class="eyebrow"><span class="eyebrow-num">VI</span><span>Contacte</span><span class="eyebrow-rule"></span></p>
+        <h2>Vă așteptăm</h2>
+        <p class="lead">Secretariatul răspunde zilnic între orele 09:00 și 17:00.</p>
+      </div>
+      <dl class="contact-list">
+        <div class="contact"><dt><svg class="od-icon" aria-hidden="true"><use href="#i-pin"/></svg><span>Adresa</span></dt><dd>MD-5431, s. Saharna, r. Rezina, Republica Moldova</dd></div>
+        <div class="contact"><dt><svg class="od-icon" aria-hidden="true"><use href="#i-clock"/></svg><span>Program de vizită</span></dt><dd>Zilnic, <span class="od-nowrap">08:00 – 20:00</span></dd></div>
+        <div class="contact"><dt><svg class="od-icon" aria-hidden="true"><use href="#i-phone"/></svg><span>Telefon</span></dt><dd><a class="od-nowrap" href="tel:+37325478600">0254 78 600</a></dd></div>
+        <div class="contact"><dt><svg class="od-icon" aria-hidden="true"><use href="#i-mail"/></svg><span>Email</span></dt><dd><a href="mailto:info@manastirea-saharna.md">info@manastirea-saharna.md</a><br><a href="mailto:secretariat@manastirea-saharna.md">secretariat@manastirea-saharna.md</a></dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-logo" src="assets/logo.png" width="320" height="267" alt="Sigiliul Sfintei Mănăstiri Saharna">
+        <p class="footer-about">Loc de rugăciune, pelerinaj și slujire ortodoxă pe malul Nistrului.</p>
+      </div>
+      <div><h3>Mănăstirea</h3><ul><li><a href="#prezentare">Prezentare</a></li><li><a href="#vizita">Cum ajungeți</a></li><li><a href="#program">Programul slujbelor</a></li></ul></div>
+      <div><h3>Implicare</h3><ul><li><a href="#pomelnic">Pomelnic</a></li><li><a href="#donatii">Donații</a></li><li><a href="#contacte">Contacte</a></li></ul></div>
+      <div><h3>Urmăriți-ne</h3><ul><li><a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a></li><li><a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a></li><li><a href="https://www.tiktok.com/" target="_blank" rel="noopener">TikTok</a></li></ul></div>
+    </div>
+    <div class="footer-base">
+      <span>© 2005–2026 Sfânta Mănăstire Saharna</span>
+      <span>Fotografii: Diego Delso, Andrei Szocs (CC BY-SA 4.0), Kamen Tabakov (CC BY-SA 2.0), Guttorm Flatabø (CC BY 2.0) — Wikimedia Commons</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

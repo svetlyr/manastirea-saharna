@@ -1,0 +1,13 @@
+{
+  "note": "All images were taken from the supplied Figma file (Saharna.fig). Its footer credits them collectively; only the hero photo is attributed individually there. Confirm per-photo authorship before publishing.",
+  "collectiveCredit": "Fotografii: Diego Delso, Andrei Szocs (CC BY-SA 4.0), Kamen Tabakov (CC BY-SA 2.0), Guttorm Flatabø (CC BY 2.0) — Wikimedia Commons",
+  "images": [
+    { "file": "hero-valley.jpg", "subject": "Valea Saharnei, vedere de sus", "author": "Andrei Szocs", "license": "CC BY-SA 4.0", "source": "Wikimedia Commons (via Saharna.fig)" },
+    { "file": "church.jpg", "subject": "Biserica Sfânta Treime", "author": "see collectiveCredit", "license": "CC BY-SA / CC BY", "source": "Wikimedia Commons (via Saharna.fig)" },
+    { "file": "valley-chapel-hill.jpg", "subject": "Valea Saharnei văzută de pe dealul capelei", "author": "see collectiveCredit", "license": "CC BY-SA / CC BY", "source": "Wikimedia Commons (via Saharna.fig)" },
+    { "file": "gate.jpg", "subject": "Poarta de intrare în mănăstire", "author": "see collectiveCredit", "license": "CC BY-SA / CC BY", "source": "Wikimedia Commons (via Saharna.fig)" },
+    { "file": "interior.jpg", "subject": "Interiorul pictat al bisericii", "author": "see collectiveCredit", "license": "CC BY-SA / CC BY", "source": "Wikimedia Commons (via Saharna.fig)" },
+    { "file": "cave-skete.jpg", "subject": "Schitul rupestru săpat în stâncă", "author": "see collectiveCredit", "license": "CC BY-SA / CC BY", "source": "Wikimedia Commons (via Saharna.fig)" },
+    { "file": "logo.png", "subject": "Sigiliul Sfintei Mănăstiri Saharna", "author": "Mănăstirea Saharna", "license": "brand asset", "source": "Saharna.fig" }
+  ]
+}
