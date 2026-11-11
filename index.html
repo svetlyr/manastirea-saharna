@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sfânta Mănăstire Saharna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&amp;family=Commissioner:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F2E9}
+a{color:#1A1208}a:hover{color:#253528}
+.navlink{text-decoration:none;border-bottom:1px solid transparent;transition:border-color 300ms}
+.navlink:hover{border-bottom-color:#C4A24A}
+.btn{transition:background-color 300ms,color 300ms}
+.btn-gold:hover{background-color:#D9C48C!important}
+.btn-dark:hover{background-color:#1A1208!important}
+.btn-line:hover{background-color:#F6F2E9!important;color:#1A1208!important}
+.zoom img{transition:transform 1000ms}
+.zoom:hover img{transform:scale(1.05)}
+.btn-light:hover{background-color:#FFFFFF!important}
+.show-sm{display:none!important}
+/* Breakpoints (Tailwind): sm 640 · md 768 · lg 1024. Tablet = 640–1023. */
+.grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:1023px){
+  .hide-sm{display:none!important}
+  .show-sm{display:flex!important}
+  .grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:639px){
+  .grid-4,.grid-2{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+<style>
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+.ph{}
+.tab{background:none;border:0;font:500 14px/20px 'Commissioner',sans-serif;letter-spacing:.05em;text-transform:uppercase;padding:16px 24px;cursor:pointer;white-space:nowrap;margin-bottom:-1px;color:rgba(246,242,233,.6);border-bottom:2px solid transparent}
+.tab[aria-selected="true"]{color:#F6F2E9;border-bottom-color:#C4A24A}
+.rv{opacity:0;transform:translateY(16px);transition:opacity 700ms,transform 700ms}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media (max-width:639px){ .wrap-pad{padding-left:16px!important;padding-right:16px!important} }
+</style>
+</head>
+<body id="top">
+<!-- Sizes follow the Tailwind scale: spacing in 4px steps, text xs–8xl, max-w-7xl container. -->
+<div style="font-family: 'Commissioner', system-ui, sans-serif; font-size: 16px; line-height: 28px; color: #1A1208; background: #F6F2E9; min-height: 100%; overflow-x: hidden;">
+
+<!-- ============ TOP BAR  (h-10, text-sm) ============ -->
+<div style="background: #1B271E; color: rgba(246,242,233,.8); font-size: 14px; line-height: 20px;">
+  <div class="wrap-pad" style="max-width: 1280px; margin: 0 auto; padding: 0 32px;  height: 40px; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+    <div style="display: flex; gap: 32px; align-items: center;">
+      <span style="display: inline-flex; align-items: center; gap: 8px;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: #C4A24A; stroke-width: 1.5;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        Deschis zilnic 08:00 – 20:00
+      </span>
+      <span class="hide-sm" style="display: inline-flex; align-items: center; gap: 8px;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: #C4A24A; stroke-width: 1.5;"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path></svg>
+        <a href="tel:+37325478600" style="color: inherit; text-decoration: none;">0254 78 600</a>
+      </span>
+    </div>
+    <div role="group" aria-label="Limba" style="display: flex; gap: 4px;">
+      <button aria-pressed="true" style="background: none; border: 0; color: #C4A24A; font: 500 12px/16px 'Commissioner', sans-serif; letter-spacing: .1em; padding: 8px; cursor: pointer;">RO</button>
+      <button aria-pressed="false" style="background: none; border: 0; color: inherit; font: 500 12px/16px 'Commissioner', sans-serif; letter-spacing: .1em; padding: 8px; cursor: pointer;">EN</button>
+      <button aria-pressed="false" style="background: none; border: 0; color: inherit; font: 500 12px/16px 'Commissioner', sans-serif; letter-spacing: .1em; padding: 8px; cursor: pointer;">RU</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HEADER  (h-24, logo h-20) ============ -->
+<header style="background: #F6F2E9; border-bottom: 1px solid #CCC2B3;">
+  <div class="wrap-pad" style="max-width: 1280px; margin: 0 auto; padding: 0 32px;  height: 96px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+    <nav class="hide-sm" aria-label="Principal" style="flex: 1; display: flex; gap: 32px; font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: .025em;">
+      <a class="navlink" href="#prezentare" style="padding: 8px 0; border-bottom-color: #C4A24A;">Prezentare</a>
+      <a class="navlink" href="#vizita" style="padding: 8px 0;">Cum ajungeți</a>
+      <a class="navlink" href="#program" style="padding: 8px 0;">Programul slujbelor</a>
+    </nav>
+    <a href="#top" aria-label="Sfânta Mănăstire Saharna — acasă" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+      <img src="assets/saharna-logo.png" alt="Sigiliul Sfintei Mănăstiri Saharna" style="height: 80px; width: auto; display: block;">
+      <span class="show-sm" style="flex-direction: column;">
+        <span style="font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #807566;">Sfânta Mănăstire</span>
+        <span style="font: 600 24px/32px 'Cormorant Garamond', Georgia, serif;">Saharna</span>
+      </span>
+    </a>
+    <nav class="hide-sm" aria-label="Secundar" style="flex: 1; display: flex; gap: 32px; justify-content: flex-end; align-items: center; font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: .025em;">
+      <a class="navlink" href="#pomelnic" style="padding: 8px 0;">Pomelnic</a>
+      <a class="navlink" href="#contacte" style="padding: 8px 0;">Contacte</a>
+      <a class="btn btn-dark" href="#donatii" style="background: #253528; color: #F6F2E9; text-decoration: none; padding: 12px 20px; font-size: 14px; line-height: 20px; letter-spacing: .05em; text-transform: uppercase; border-radius: 2px;">Donații</a>
+    </nav>
+    <button class="show-sm" aria-label="Deschide meniul" style="background: none; border: 0; padding: 8px; cursor: pointer; color: #1A1208; width: 48px; height: 48px; align-items: center; justify-content: center;">
+      <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round;"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO  (min-h-192, overlay 50%) ============ -->
+<section aria-label="Bun venit" style="position: relative; min-height: 768px; display: flex; align-items: flex-end; color: #F6F2E9; overflow: hidden; isolation: isolate;">
+  <img src="assets/saharna-hero-valley.jpg" alt="Mănăstirea Saharna văzută de pe dealul Talpa Maicii Domnului, între pădurile de pe valea Nistrului" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2;">
+  <div style="position: absolute; inset: 0; background: rgba(20,26,18,.5); z-index: -1;"></div>
+  <span style="position: absolute; top: 16px; right: 32px; font-size: 12px; line-height: 16px; color: rgba(246,242,233,.6);">Foto: Andrei Szocs, CC BY-SA 4.0</span>
+  <div class="wrap-pad" style="width: 100%; max-width: 1280px; margin: 0 auto; padding: 128px 32px 160px; box-sizing: border-box;">
+    <div style="display: flex; align-items: center; gap: 16px; font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #D9C48C; margin-bottom: 24px;">
+      <span style="width: 48px; height: 1px; background: #C4A24A;"></span>
+      Raionul Rezina · Malul drept al Nistrului
+    </div>
+    <h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(48px, 7vw, 96px); line-height: 1; max-width: 896px;">Casa Sfintei Treimi, <em style="color: #D9C48C;">între stânci și ape</em></h1>
+    <p style="font-size: 20px; line-height: 28px; font-weight: 300; max-width: 512px; margin: 32px 0 40px; color: rgba(246,242,233,.9);">Un loc de rugăciune și de liniște, unde pelerinii vin de aproape două veacuri și jumătate să se închine Sfântului Macarie și Maicii Domnului.</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+      <a class="btn btn-gold" href="#vizita" style="display: inline-flex; align-items: center; gap: 8px; background: #C4A24A; color: #1A1208; text-decoration: none; padding: 16px 24px; font: 500 14px/20px 'Commissioner', sans-serif; letter-spacing: .05em; text-transform: uppercase; border-radius: 2px;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        Planificați vizita
+      </a>
+      <a class="btn btn-light" href="#pomelnic" style="display: inline-flex; align-items: center; gap: 8px; background: #F6F2E9; color: #253528; text-decoration: none; padding: 16px 24px; font: 500 14px/20px 'Commissioner', sans-serif; letter-spacing: .05em; text-transform: uppercase; border-radius: 2px;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5;"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+        Trimiteți un pomelnic
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEXT SERVICE CARD  (-mt-20, max-w-2xl) ============ -->
+<div class="wrap-pad" style="max-width: 1280px; margin: -80px auto 0; padding: 0 32px;  box-sizing: border-box; position: relative; display: flex; justify-content: flex-end;">
+  <div style="width: 100%; max-width: 672px; background: #F6F2E9; border: 1px solid #CCC2B3; padding: 24px 32px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; gap: 24px 32px; box-shadow: 0 25px 50px -12px rgba(26,18,8,.25);">
+    <div style="text-align: center; padding-right: 32px; border-right: 1px solid #CCC2B3;">
+      <div style="font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .1em; text-transform: uppercase; color: #807566;"><span id="nx-day">Azi</span></div>
+      <div style="font: 600 48px/1 'Cormorant Garamond', Georgia, serif; color: #253528; margin-top: 4px;"><span id="nx-time">07:30</span></div>
+    </div>
+    <div style="flex: 1 1 192px;">
+      <div style="font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8A6F22;">Următoarea slujbă</div>
+      <div style="font: 600 30px/36px 'Cormorant Garamond', Georgia, serif; margin-top: 4px;"><span id="nx-name">Sfânta Liturghie</span></div>
+      <div style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; line-height: 20px; color: #6B6254;"><span style="width: 8px; height: 8px; border-radius: 9999px; background: #253528;"></span><span id="nx-rel">ora Chișinăului</span></div>
+    </div>
+    <a href="#program" style="display: inline-flex; align-items: center; gap: 8px; font-weight: 500; font-size: 16px; line-height: 24px; text-decoration: none; border-bottom: 1px solid #C4A24A; padding-bottom: 4px;">Tot programul
+      <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+    </a>
+  </div>
+</div>
+
+<!-- ============ I. PREZENTARE  (py-28) ============ -->
+<section id="prezentare" style="padding: 112px 0 128px;">
+  <div class="wrap-pad" style="max-width: 1280px; margin: 0 auto; padding: 0 32px;  box-sizing: border-box;">
+    <div style="display: flex; flex-wrap: wrap; gap: 40px 96px;">
+      <div style="flex: 5 1 320px;">
+        <div style="display: inline-flex; align-items: center; gap: 12px; font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #807566;">
+          <span style="font: 700 16px/24px 'Cormorant Garamond', serif; color: #A88733;">I</span> Prezentare <span style="width: 40px; height: 1px; background: #807566; opacity: .5;"></span>
+        </div>
+        <h2 style="margin: 16px 0 32px; font: 500 clamp(36px, 5vw, 72px)/1 'Cormorant Garamond', Georgia, serif;">Casa Dumnezeieștii <em style="display: block; color: #253528;">Treimi</em></h2>
+        <p style="margin: 0; font: italic 500 20px/28px 'Cormorant Garamond', serif; color: #807566;">Fondată în anul 1776</p>
+      </div>
+      <div style="flex: 7 1 448px; font-size: 18px; line-height: 32px;">
+        <p style="margin: 0 0 20px;"><span style="float: left; font: 600 96px/.8 'Cormorant Garamond', serif; margin: 8px 16px 0 0; color: #253528;">M</span>ănăstirea Saharna se află pe malul drept al Nistrului, în raionul Rezina, și este una dintre cele mai vechi și mai cunoscute mănăstiri din Moldova. Aici se păstrează moaștele Sfântului Cuvios Macarie și icoana făcătoare de minuni a Maicii Domnului.</p>
+        <p style="margin: 0 0 20px;">Liniștea pădurilor, apele care coboară printre stânci și cântarea slujbelor aduc an de an mii de pelerini. <span class="ph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus, posuere velit aliquet. Donec ullamcorper nulla non metus auctor fringilla.</span></p>
+        <p style="margin: 0 0 20px;"><span class="ph">Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum, nullam quis risus eget urna mollis ornare vel eu leo.</span></p>
+        <a href="#vizita" style="display: inline-flex; align-items: center; gap: 8px; font-weight: 500; font-size: 16px; line-height: 24px; text-decoration: none; border-bottom: 1px solid #C4A24A; padding-bottom: 4px;">Veniți la Saharna
+          <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </a>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid #1A1208; border-bottom: 1px solid #CCC2B3; margin-top: 48px;">
+          <div style="padding: 24px 12px 24px 0;">
+            <div style="font: 600 clamp(36px, 4.4vw, 60px)/1 'Cormorant Garamond', serif; color: #253528;">1776</div>
+            <div style="font-size: 14px; line-height: 20px; letter-spacing: .05em; color: #6B6254; margin-top: 8px;">Anul întemeierii</div>
+          </div>
+          <div style="padding: 24px 12px 24px 24px; border-left: 1px solid #CCC2B3;">
+            <div style="font: 600 clamp(36px, 4.4vw, 60px)/1 'Cormorant Garamond', serif; color: #253528;">XV+</div>
+            <div style="font-size: 14px; line-height: 20px; letter-spacing: .05em; color: #6B6254; margin-top: 8px;">Viețuitori</div>
+          </div>
+          <div style="padding: 24px 12px 24px 24px; border-left: 1px solid #CCC2B3;">
+            <div style="font: 600 clamp(36px, 4.4vw, 60px)/1 'Cormorant Garamond', serif; color: #253528;">365</div>
+            <div style="font-size: 14px; line-height: 20px; letter-spacing: .05em; color: #6B6254; margin-top: 8px;">Zile de rugăciune pe an</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- photo mosaic  (gap-4, mt-28) -->
+    <div style="margin-top: 112px; display: flex; flex-wrap: wrap; gap: 16px;">
+      <div style="flex: 7 1 448px; display: flex; flex-direction: column; gap: 16px;">
+        <figure class="zoom" style="margin: 0; position: relative; height: 560px; overflow: hidden; background: #E8E0D0;">
+          <img src="assets/saharna-church.jpg" alt="Biserica principală a mănăstirii, cu turle verzi" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          <figcaption style="position: absolute; left: 0; bottom: 0; background: #F6F2E9; padding: 8px 16px; font: italic 500 18px/28px 'Cormorant Garamond', serif;">Biserica Sfânta Treime</figcaption>
+        </figure>
+        <figure class="zoom" style="margin: 0; position: relative; height: 176px; overflow: hidden; background: #E8E0D0;">
+          <img src="assets/saharna-valley-chapel-hill.jpg" alt="Valea Saharnei văzută de pe dealul capelei" style="width: 100%; height: 100%; object-fit: cover; object-position: center 60%; display: block;">
+          <figcaption style="position: absolute; left: 0; bottom: 0; background: #F6F2E9; padding: 8px 16px; font: italic 500 18px/28px 'Cormorant Garamond', serif;">Valea Saharnei</figcaption>
+        </figure>
+      </div>
+      <div style="flex: 5 1 320px; display: flex; flex-direction: column; gap: 16px;">
+        <figure class="zoom" style="margin: 0; position: relative; height: 368px; overflow: hidden; background: #E8E0D0;">
+          <img src="assets/saharna-gate.jpg" alt="Poarta de intrare în mănăstire" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          <figcaption style="position: absolute; left: 0; bottom: 0; background: #F6F2E9; padding: 8px 16px; font: italic 500 18px/28px 'Cormorant Garamond', serif;">Poarta mănăstirii</figcaption>
+        </figure>
+        <div style="display: flex; gap: 16px;">
+          <figure class="zoom" style="margin: 0; flex: 3 1 0; position: relative; height: 368px; overflow: hidden; background: #E8E0D0;">
+            <img src="assets/saharna-interior.jpg" alt="Interiorul pictat al bisericii" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <figcaption style="position: absolute; left: 0; bottom: 0; background: #F6F2E9; padding: 8px 16px; font: italic 500 18px/28px 'Cormorant Garamond', serif;">Interiorul bisericii</figcaption>
+          </figure>
+          <figure class="zoom" style="margin: 0; flex: 2 1 0; position: relative; height: 368px; overflow: hidden; background: #E8E0D0;">
+            <img src="assets/saharna-cave-skete.jpg" alt="Schitul rupestru săpat în stâncă" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <figcaption style="position: absolute; left: 0; bottom: 0; background: #F6F2E9; padding: 8px 16px; font: italic 500 18px/28px 'Cormorant Garamond', serif;">Schitul rupestru</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- welcome quote  (py-28, max-w-4xl) -->
+<div style="background: #E8E0D0; padding: 112px 0;">
+  <blockquote style="margin: 0 auto; max-width: 896px; padding: 0 32px;  text-align: center; box-sizing: border-box;">
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <span style="flex: 1; height: 1px; background: #C4A24A; opacity: .6;"></span>
+      <svg aria-hidden="true" viewBox="0 0 22 30" style="width: 16px; height: 24px; fill: none; stroke: #C4A24A; stroke-width: 1.6;"><line x1="11" y1="1" x2="11" y2="29"></line><line x1="7" y1="5" x2="15" y2="5"></line><line x1="2" y1="11" x2="20" y2="11"></line><line x1="6" y1="22.5" x2="16" y2="19"></line></svg>
+      <span style="flex: 1; height: 1px; background: #C4A24A; opacity: .6;"></span>
+    </div>
+    <p style="font: italic 500 clamp(24px, 3.2vw, 36px)/1.25 'Cormorant Garamond', serif; margin: 32px 0;">„Cel ce trece pragul acestei sfinte mănăstiri primește binecuvântarea Sfintei Treimi, iar Maica Domnului îl întâmpină ca pe un fiu așteptat.”</p>
+    <cite style="font-style: normal; font-size: 12px; line-height: 16px; letter-spacing: .2em; text-transform: uppercase; color: #6B6254;">Cuvânt de bun venit pentru pelerini</cite>
+  </blockquote>
+</div>
+
+<!-- ============ II. CUM AJUNGEȚI  (py-32) ============ -->
+<section id="vizita" style="padding: 128px 0;">
+  <div class="wrap-pad" style="max-width: 1280px; margin: 0 auto; padding: 0 32px;  box-sizing: border-box;">
+    <div style="display: flex; flex-wrap: wrap; gap: 24px 96px; align-items: flex-end; margin-bottom: 64px;">
+      <div style="flex: 5 1 320px;">
+        <div style="display: inline-flex; align-items: center; gap: 12px; font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #807566;">
+          <span style="font: 700 16px/24px 'Cormorant Garamond', serif; color: #A88733;">II</span> Cum ajungeți <span style="width: 40px; height: 1px; background: #807566; opacity: .5;"></span>
+        </div>
+        <h2 style="margin: 16px 0 0; font: 500 clamp(36px, 5vw, 72px)/1 'Cormorant Garamond', Georgia, serif;">Drumul spre <em style="color: #253528;">Saharna</em></h2>
+      </div>
+      <p style="flex: 6 1 384px; margin: 0; color: #4A4034; max-width: 512px;">Mănăstirea se află la aproximativ <span class="ph">110 km</span> de Chișinău, în satul Saharna. Porțile sunt deschise zilnic între orele 08:00 și 20:00.</p>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 48px 64px; align-items: flex-start;">
+      <!-- map (embed in build) -->
+      <div style="flex: 7 1 448px; border: 1px solid #CCC2B3; padding: 8px; background: #FFFFFF;">
+        <div style="position: relative; height: 512px; background: #E9E6DC; display: flex; align-items: center; justify-content: center; color: #807566; font-size: 14px; line-height: 20px;">
+          <div style="position: absolute; left: 16px; top: 16px; background: #253528; color: #F6F2E9; padding: 16px 20px; max-width: 256px; font-size: 14px; line-height: 20px;">
+            <div style="font: 600 20px/28px 'Cormorant Garamond', serif; color: #D9C48C;">Mănăstirea Saharna</div>
+            MD-5431, s. Saharna, r. Rezina
+          </div>
+          <span style="display: inline-flex; align-items: center; gap: 8px;">
+            <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Google Maps embed · filtru sepia 25%
+          </span>
+        </div>
+      </div>
+      <!-- routes -->
+      <div style="flex: 5 1 320px;">
+        <div style="display: flex; gap: 20px; padding: 24px 0; border-top: 1px solid #CCC2B3;">
+          <span style="width: 48px; height: 48px; flex: none; border: 1px solid #C4A24A; display: flex; align-items: center; justify-content: center; color: #253528;">
+            <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5;"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path><circle cx="7" cy="17" r="2"></circle><path d="M9 17h6"></path><circle cx="17" cy="17" r="2"></circle></svg>
+          </span>
+          <div>
+            <h3 style="margin: 0 0 4px; font: 600 24px/32px 'Cormorant Garamond', serif;">Cu mașina</h3>
+            <div style="font-size: 12px; line-height: 16px; letter-spacing: .1em; text-transform: uppercase; color: #6B6254; margin-bottom: 8px;">≈ 1 h 45 min · Chișinău – Orhei – Rezina</div>
+            <p style="margin: 0; font-size: 16px; line-height: 24px; color: #4A4034;"><span class="ph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Parcare gratuită la intrarea în mănăstire.</span></p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 20px; padding: 24px 0; border-top: 1px solid #CCC2B3;">
+          <span style="width: 48px; height: 48px; flex: none; border: 1px solid #C4A24A; display: flex; align-items: center; justify-content: center; color: #253528;">
+            <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5;"><path d="M8 6v6"></path><path d="M15 6v6"></path><path d="M2 12h19.6"></path><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"></path><circle cx="7" cy="18" r="2"></circle><path d="M9 18h5"></path><circle cx="16" cy="18" r="2"></circle></svg>
+          </span>
+          <div>
+            <h3 style="margin: 0 0 4px; font: 600 24px/32px 'Cormorant Garamond', serif;">Cu autobuzul</h3>
+            <div style="font-size: 12px; line-height: 16px; letter-spacing: .1em; text-transform: uppercase; color: #6B6254; margin-bottom: 8px;">Gara de Nord · cursa spre Rezina</div>
+            <p style="margin: 0; font-size: 16px; line-height: 24px; color: #4A4034;"><span class="ph">Curse regulate spre Rezina; de acolo, taxi sau microbuz local până în satul Saharna.</span></p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 20px; padding: 24px 0; border-top: 1px solid #CCC2B3; border-bottom: 1px solid #CCC2B3;">
+          <span style="width: 48px; height: 48px; flex: none; border: 1px solid #C4A24A; display: flex; align-items: center; justify-content: center; color: #253528;">
+            <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5;"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.9"></path><path d="M16 3.1a4 4 0 0 1 0 7.8"></path></svg>
+          </span>
+          <div>
+            <h3 style="margin: 0 0 4px; font: 600 24px/32px 'Cormorant Garamond', serif;">Pelerinaj organizat</h3>
+            <div style="font-size: 12px; line-height: 16px; letter-spacing: .1em; text-transform: uppercase; color: #6B6254; margin-bottom: 8px;">Grupuri · cu programare</div>
+            <p style="margin: 0; font-size: 16px; line-height: 24px; color: #4A4034;"><span class="ph">Pentru grupuri, vă rugăm să anunțați sosirea la secretariat cu câteva zile înainte.</span></p>
+          </div>
+        </div>
+        <a href="https://maps.google.com/?q=M%C4%83n%C4%83stirea+Saharna" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; font-weight: 500; font-size: 16px; line-height: 24px; text-decoration: none; border-bottom: 1px solid #C4A24A; padding-bottom: 4px;">Deschide în Google Maps
+          <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5;"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- visitor etiquette  (mt-24, p-6) -->
+    <div class="grid-4" style="margin-top: 96px; border-top: 1px solid #CCC2B3; border-left: 1px solid #CCC2B3;">
+      <div style="padding: 32px 24px; border-right: 1px solid #CCC2B3; border-bottom: 1px solid #CCC2B3;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 24px; height: 24px; fill: none; stroke: #A88733; stroke-width: 1.5; margin-bottom: 16px;"><path d="M20.4 3.5 16 2a4 4 0 0 1-8 0L3.6 3.5a2 2 0 0 0-1.3 2.2l.6 3.5a1 1 0 0 0 1 .8H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.2a1 1 0 0 0 1-.8l.6-3.5a2 2 0 0 0-1.3-2.2z"></path></svg>
+        <h4 style="margin: 0 0 8px; font: 600 24px/32px 'Cormorant Garamond', serif;">Ținută cuviincioasă</h4>
+        <p style="margin: 0; font-size: 14px; line-height: 20px; color: #4A4034;">Umeri și genunchi acoperiți; femeile, cu capul acoperit în biserică.</p>
+      </div>
+      <div style="padding: 32px 24px; border-right: 1px solid #CCC2B3; border-bottom: 1px solid #CCC2B3;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 24px; height: 24px; fill: none; stroke: #A88733; stroke-width: 1.5; margin-bottom: 16px;"><path d="M11 5 6 9H2v6h4l5 4V5z"></path><line x1="22" x2="16" y1="9" y2="15"></line><line x1="16" x2="22" y1="9" y2="15"></line></svg>
+        <h4 style="margin: 0 0 8px; font: 600 24px/32px 'Cormorant Garamond', serif;">Liniște</h4>
+        <p style="margin: 0; font-size: 14px; line-height: 20px; color: #4A4034;">Vorbiți încet și opriți sunetul telefonului pe teritoriul mănăstirii.</p>
+      </div>
+      <div style="padding: 32px 24px; border-right: 1px solid #CCC2B3; border-bottom: 1px solid #CCC2B3;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 24px; height: 24px; fill: none; stroke: #A88733; stroke-width: 1.5; margin-bottom: 16px;"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path><circle cx="12" cy="13" r="3"></circle><line x1="2" y1="2" x2="22" y2="22"></line></svg>
+        <h4 style="margin: 0 0 8px; font: 600 24px/32px 'Cormorant Garamond', serif;">Fotografii</h4>
+        <p style="margin: 0; font-size: 14px; line-height: 20px; color: #4A4034;"><span class="ph">Fotografierea în timpul slujbelor se face doar cu binecuvântare.</span></p>
+      </div>
+      <div style="padding: 32px 24px; border-right: 1px solid #CCC2B3; border-bottom: 1px solid #CCC2B3;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 24px; height: 24px; fill: none; stroke: #A88733; stroke-width: 1.5; margin-bottom: 16px;"><path d="m8 3 4 8 5-5 5 15H2L8 3z"></path></svg>
+        <h4 style="margin: 0 0 8px; font: 600 24px/32px 'Cormorant Garamond', serif;">Schitul și izvoarele</h4>
+        <p style="margin: 0; font-size: 14px; line-height: 20px; color: #4A4034;"><span class="ph">Traseul spre schitul rupestru durează cca. 20 de minute pe jos.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ III. PROGRAMUL SLUJBELOR  (py-32, bg forest) ============ -->
+<section id="program" style="padding: 128px 0; background: #253528; color: #F6F2E9;">
+  <div class="wrap-pad" style="max-width: 1280px; margin: 0 auto; padding: 0 32px;  box-sizing: border-box;">
+    <div style="display: flex; flex-wrap: wrap; gap: 24px 96px; align-items: flex-end; margin-bottom: 64px;">
+      <div style="flex: 5 1 320px;">
+        <div style="display: inline-flex; align-items: center; gap: 12px; font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: rgba(246,242,233,.7);">
+          <span style="font: 700 16px/24px 'Cormorant Garamond', serif; color: #C4A24A;">III</span> Programul slujbelor <span style="width: 40px; height: 1px; background: currentColor; opacity: .5;"></span>
+        </div>
+        <h2 style="margin: 16px 0 0; font: 500 clamp(36px, 5vw, 72px)/1 'Cormorant Garamond', Georgia, serif;">Rânduiala <em style="color: #D9C48C;">rugăciunii</em></h2>
+      </div>
+      <p style="flex: 6 1 384px; margin: 0; color: rgba(246,242,233,.8); max-width: 512px;">Slujbele se oficiază în fiecare zi a anului. În zilele de sărbătoare programul se poate schimba — vă rugăm să verificați anunțurile sau să sunați la secretariat.</p>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 48px 64px; align-items: flex-start;">
+      <div style="flex: 8 1 448px; min-width: 0;">
+        <div role="tablist" aria-label="Programul slujbelor" style="display: flex; flex-wrap: wrap; border-bottom: 1px solid rgba(246,242,233,.2); margin-bottom: 8px;">
+          <button role="tab" data-tab="week" class="tab">Luni – Sâmbătă</button><button role="tab" data-tab="sun" class="tab">Duminica</button><button role="tab" data-tab="feast" class="tab">Sărbători mari</button>
+        </div>
+        <div role="tabpanel" id="panel"></div>
+      </div>
+
+      <aside style="flex: 4 1 288px; display: flex; flex-direction: column; gap: 20px;">
+        <div style="border: 1px solid rgba(196,162,74,.5); padding: 32px;">
+          <h4 style="margin: 0 0 16px; font: 500 24px/32px 'Cormorant Garamond', serif; color: #D9C48C;">Hramuri și zile de pomenire</h4>
+          <div style="display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px dashed rgba(246,242,233,.2); font-size: 14px; line-height: 20px;"><span>Duminica Sfintei Treimi</span><span style="font: 500 18px/28px 'Cormorant Garamond', serif; color: #D9C48C;">Hram</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px dashed rgba(246,242,233,.2); font-size: 14px; line-height: 20px;"><span>Sfântul Cuvios Macarie</span><span style="font: 500 18px/28px 'Cormorant Garamond', serif; color: #D9C48C;">[DATA]</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px dashed rgba(246,242,233,.2); font-size: 14px; line-height: 20px;"><span>Icoana Maicii Domnului</span><span style="font: 500 18px/28px 'Cormorant Garamond', serif; color: #D9C48C;">[DATA]</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; font-size: 14px; line-height: 20px;"><span>Adormirea Maicii Domnului</span><span style="font: 500 18px/28px 'Cormorant Garamond', serif; color: #D9C48C;">15 aug.</span></div>
+        </div>
+        <div style="border: 1px solid rgba(196,162,74,.5); padding: 32px;">
+          <h4 style="margin: 0 0 16px; font: 500 24px/32px 'Cormorant Garamond', serif; color: #D9C48C;">Spovedanie și Taine</h4>
+          <p style="margin: 0 0 20px; font-size: 14px; line-height: 24px; color: rgba(246,242,233,.8);"><span class="ph">Spovedania se face după Vecernie sau înainte de Sfânta Liturghie. Pentru Botez, Cununie și Maslu vă rugăm să vă programați la secretariat.</span></p>
+          <a href="#contacte" style="display: inline-flex; align-items: center; gap: 8px; color: #F6F2E9; font-weight: 500; font-size: 16px; line-height: 24px; text-decoration: none; border-bottom: 1px solid #C4A24A; padding-bottom: 4px;">Contactați secretariatul
+            <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IV. POMELNIC  (py-32) ============ -->
+<section id="pomelnic" style="padding: 128px 0;">
+  <div class="wrap-pad" style="max-width: 1280px; margin: 0 auto; padding: 0 32px;  box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 56px 96px; align-items: flex-start;">
+    <div style="flex: 5 1 320px;">
+      <div style="display: inline-flex; align-items: center; gap: 12px; font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #807566;">
+        <span style="font: 700 16px/24px 'Cormorant Garamond', serif; color: #A88733;">IV</span> Pomelnic <span style="width: 40px; height: 1px; background: #807566; opacity: .5;"></span>
+      </div>
+      <h2 style="margin: 16px 0 24px; font: 500 clamp(36px, 5vw, 72px)/1 'Cormorant Garamond', Georgia, serif;">Trimiteți pomelnicul <em style="color: #253528;">online</em></h2>
+      <p style="margin: 0;">Numele celor dragi, vii și adormiți, vor fi pomenite de părinții mănăstirii la Sfânta Liturghie.</p>
+      <ol style="list-style: none; padding: 0; margin: 40px 0 0;">
+        <li style="display: flex; gap: 16px; padding: 16px 0; border-top: 1px solid #CCC2B3; font-size: 16px; line-height: 24px;"><span style="width: 32px; flex: none; font: 600 24px/24px 'Cormorant Garamond', serif; color: #A88733;">I</span>Alegeți felul pomenirii — la Liturghie, sărindar sau acatist.</li>
+        <li style="display: flex; gap: 16px; padding: 16px 0; border-top: 1px solid #CCC2B3; font-size: 16px; line-height: 24px;"><span style="width: 32px; flex: none; font: 600 24px/24px 'Cormorant Garamond', serif; color: #A88733;">II</span>Scrieți numele, câte unul pe rând, separat pentru vii și pentru adormiți.</li>
+        <li style="display: flex; gap: 16px; padding: 16px 0; border-top: 1px solid #CCC2B3; font-size: 16px; line-height: 24px;"><span style="width: 32px; flex: none; font: 600 24px/24px 'Cormorant Garamond', serif; color: #A88733;">III</span>Veți primi o confirmare pe email după ce pomelnicul a fost primit.</li>
+      </ol>
+    </div>
+
+    <div style="flex: 7 1 448px; background: #FBF9F4; border: 1px solid #CCC2B3; padding: 48px; box-sizing: border-box; outline: 1px solid #E8E0D0; outline-offset: -8px;">
+      <div id="form-wrap">
+        <form id="pform">
+          <h3 style="margin: 0; text-align: center; font: 500 30px/36px 'Cormorant Garamond', serif;">Pomelnic</h3>
+          <div style="display: flex; align-items: center; gap: 16px; max-width: 224px; margin: 16px auto 32px;">
+            <span style="flex: 1; height: 1px; background: #C4A24A; opacity: .6;"></span>
+            <svg aria-hidden="true" viewBox="0 0 22 30" style="width: 16px; height: 20px; fill: none; stroke: #C4A24A; stroke-width: 1.6;"><line x1="11" y1="1" x2="11" y2="29"></line><line x1="7" y1="5" x2="15" y2="5"></line><line x1="2" y1="11" x2="20" y2="11"></line><line x1="6" y1="22.5" x2="16" y2="19"></line></svg>
+            <span style="flex: 1; height: 1px; background: #C4A24A; opacity: .6;"></span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 0 20px;">
+            <div style="flex: 1 1 224px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px;">
+              <label for="f-name" style="font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #6B6254;">Numele dvs. <span style="color: #B42318;">*</span></label>
+              <input id="f-name" name="name" required="required" autocomplete="name" style="font: 400 16px/24px 'Commissioner', sans-serif; color: #1A1208; background: transparent; border: 0; border-bottom: 1px solid #CCC2B3; padding: 8px 0; outline: none;">
+            </div>
+            <div style="flex: 1 1 224px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px;">
+              <label for="f-mail" style="font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #6B6254;">Email <span style="color: #B42318;">*</span></label>
+              <input id="f-mail" name="email" type="email" required="required" autocomplete="email" style="font: 400 16px/24px 'Commissioner', sans-serif; color: #1A1208; background: transparent; border: 0; border-bottom: 1px solid #CCC2B3; padding: 8px 0; outline: none;">
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px;">
+            <label for="f-type" style="font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #6B6254;">Felul pomenirii</label>
+            <select id="f-type" name="type" style="font: 400 16px/24px 'Commissioner', sans-serif; color: #1A1208; background: transparent; border: 0; border-bottom: 1px solid #CCC2B3; padding: 8px 0; outline: none;">
+              <option>Pomenire la Sfânta Liturghie</option>
+              <option>Sărindar (40 de Liturghii)</option>
+              <option>Acatist</option>
+              <option>Parastas pentru cei adormiți</option>
+            </select>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 0 20px;">
+            <div style="flex: 1 1 224px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px;">
+              <label for="f-vii" style="display: flex; align-items: center; gap: 8px; font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #6B6254;"><span style="width: 8px; height: 8px; border-radius: 9999px; background: #253528;"></span>Pentru cei vii</label>
+              <textarea id="f-vii" name="vii" placeholder="Ioan&#10;Maria" style="min-height: 128px; resize: vertical; font: 400 20px/32px 'Cormorant Garamond', serif; color: #1A1208; background: transparent; border: 0; border-bottom: 1px solid #CCC2B3; padding: 0; outline: none; background-image: repeating-linear-gradient(transparent 0 31px, #E8E0D0 31px 32px);"></textarea>
+            </div>
+            <div style="flex: 1 1 224px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px;">
+              <label for="f-adorm" style="display: flex; align-items: center; gap: 8px; font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #6B6254;"><span style="width: 8px; height: 8px; border-radius: 9999px; background: #807566;"></span>Pentru cei adormiți</label>
+              <textarea id="f-adorm" name="adormiti" placeholder="Gheorghe&#10;Elena" style="min-height: 128px; resize: vertical; font: 400 20px/32px 'Cormorant Garamond', serif; color: #1A1208; background: transparent; border: 0; border-bottom: 1px solid #CCC2B3; padding: 0; outline: none; background-image: repeating-linear-gradient(transparent 0 31px, #E8E0D0 31px 32px);"></textarea>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px;">
+            <label for="f-msg" style="font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #6B6254;">Mesaj (opțional)</label>
+            <input id="f-msg" name="msg" placeholder="O rugăminte sau o intenție anume" style="font: 400 16px/24px 'Commissioner', sans-serif; color: #1A1208; background: transparent; border: 0; border-bottom: 1px solid #CCC2B3; padding: 8px 0; outline: none;">
+          </div>
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; margin-top: 8px;">
+            <small style="color: #6B6254; font-size: 14px; line-height: 20px; max-width: 288px;">Datele sunt folosite doar pentru pomenire și confirmare.</small>
+            <button class="btn btn-dark" type="submit" style="display: inline-flex; align-items: center; gap: 8px; background: #253528; color: #F6F2E9; border: 0; border-radius: 2px; cursor: pointer; padding: 16px 24px; font: 500 14px/20px 'Commissioner', sans-serif; letter-spacing: .05em; text-transform: uppercase;">
+              <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5;"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+              Trimite pomelnicul
+            </button>
+          </div>
+        </form>
+      </div>
+      <div id="sent-wrap" hidden>
+        <div role="status" style="text-align: center; padding: 40px 0;">
+          <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 40px; height: 40px; fill: none; stroke: #253528; stroke-width: 1.5; margin-bottom: 16px;"><path d="M20 6 9 17l-5-5"></path></svg>
+          <h3 style="margin: 0 0 12px; font: 500 30px/36px 'Cormorant Garamond', serif;">Pomelnicul a fost trimis</h3>
+          <p style="margin: 0 0 20px;">Vă mulțumim. Numele vor fi pomenite la cea mai apropiată Sfântă Liturghie.</p>
+          <button id="again" style="background: none; border: 0; border-bottom: 1px solid #C4A24A; padding: 0 0 4px; cursor: pointer; font: 500 16px/24px 'Commissioner', sans-serif; color: #1A1208;">Trimiteți încă un pomelnic</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ V. DONAȚII  (py-32, bg sand) ============ -->
+<section id="donatii" style="padding: 128px 0; background: #E8E0D0;">
+  <div class="wrap-pad" style="max-width: 1280px; margin: 0 auto; padding: 0 32px;  box-sizing: border-box;">
+    <div style="display: flex; flex-wrap: wrap; gap: 24px 96px; align-items: flex-end; margin-bottom: 64px;">
+      <div style="flex: 5 1 320px;">
+        <div style="display: inline-flex; align-items: center; gap: 12px; font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #6B6254;">
+          <span style="font: 700 16px/24px 'Cormorant Garamond', serif; color: #8A6F22;">V</span> Donații <span style="width: 40px; height: 1px; background: #807566; opacity: .5;"></span>
+        </div>
+        <h2 style="margin: 16px 0 0; font: 500 clamp(36px, 5vw, 72px)/1 'Cormorant Garamond', Georgia, serif;">Sprijiniți <em style="color: #253528;">sfânta mănăstire</em></h2>
+      </div>
+      <p style="flex: 6 1 384px; margin: 0; color: #4A4034; max-width: 512px;">Mănăstirea se întreține din jertfa credincioșilor. Fiecare dar ajută la purtarea de grijă a bisericilor, a pelerinilor și a celor aflați în nevoie.</p>
+    </div>
+
+    <div class="grid-2" style="gap: 20px;">
+      <article style="background: #F6F2E9; padding: 32px; display: flex; flex-direction: column; border-top: 4px solid #C4A24A;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 32px; height: 32px; fill: none; stroke: #A88733; stroke-width: 1.5; margin-bottom: 24px;"><line x1="3" x2="21" y1="22" y2="22"></line><line x1="6" x2="6" y1="18" y2="11"></line><line x1="10" x2="10" y1="18" y2="11"></line><line x1="14" x2="14" y1="18" y2="11"></line><line x1="18" x2="18" y1="18" y2="11"></line><polygon points="12 2 20 7 4 7"></polygon></svg>
+        <h3 style="margin: 0 0 12px; font: 500 30px/36px 'Cormorant Garamond', serif;">Transfer bancar</h3>
+        <p style="margin: 0 0 20px; font-size: 14px; line-height: 24px; color: #4A4034;">Donații în lei, euro sau dolari, direct în contul mănăstirii.</p>
+        <div style="margin-top: auto; border: 1px dashed #CCC2B3; padding: 16px; font-size: 14px; line-height: 20px;">
+          <div style="font-size: 12px; line-height: 16px; letter-spacing: .1em; text-transform: uppercase; color: #6B6254;">Beneficiar</div>
+          <div style="margin: 4px 0 12px; font-family: ui-monospace, Menlo, Consolas, monospace;">[DENUMIREA OFICIALĂ]</div>
+          <div style="font-size: 12px; line-height: 16px; letter-spacing: .1em; text-transform: uppercase; color: #6B6254;">IBAN (MDL)</div>
+          <div style="margin: 4px 0 12px; font-family: ui-monospace, Menlo, Consolas, monospace; display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+            <span style="overflow-wrap: anywhere;">MD00 XX00 0000 0000 0000 0000</span>
+            <button id="copy" aria-label="Copiază IBAN" style="background: none; border: 0; cursor: pointer; color: #253528; padding: 4px; display: inline-flex;">
+              <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5;"><rect width="14" height="14" x="8" y="8" rx="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+            </button>
+          </div>
+          <div style="font-size: 12px; line-height: 16px; letter-spacing: .1em; text-transform: uppercase; color: #6B6254;">Banca</div>
+          <div style="margin: 4px 0 0; font-family: ui-monospace, Menlo, Consolas, monospace;">[BANCA] · BIC [XXXXMD2X]</div>
+        </div>
+      </article>
+      <article style="background: #F6F2E9; padding: 32px; display: flex; flex-direction: column; border-top: 4px solid #253528;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 32px; height: 32px; fill: none; stroke: #A88733; stroke-width: 1.5; margin-bottom: 24px;"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line><line x1="6" x2="10" y1="15" y2="15"></line></svg>
+        <h3 style="margin: 0 0 12px; font: 500 30px/36px 'Cormorant Garamond', serif;">PayPal</h3>
+        <p style="margin: 0 0 20px; font-size: 14px; line-height: 24px; color: #4A4034;">Donație online cu cardul sau din contul PayPal, din orice țară.</p>
+        <a class="btn btn-dark" href="#" style="margin-top: auto; display: flex; justify-content: center; align-items: center; gap: 8px; background: #253528; color: #F6F2E9; text-decoration: none; padding: 16px 24px; font: 500 14px/20px 'Commissioner', sans-serif; letter-spacing: .05em; text-transform: uppercase; border-radius: 2px;">Donează prin PayPal
+          <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5;"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+        </a>
+      </article>
+      <article style="background: #F6F2E9; padding: 32px; display: flex; flex-direction: column; border-top: 4px solid #253528;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 32px; height: 32px; fill: none; stroke: #A88733; stroke-width: 1.5; margin-bottom: 24px;"><path d="M12 2.5c1.6 2 2.2 3.2 2.2 4.3a2.2 2.2 0 0 1-4.4 0c0-1.1.6-2.3 2.2-4.3z"></path><rect x="9" y="11" width="6" height="10"></rect><line x1="6" y1="21.5" x2="18" y2="21.5"></line></svg>
+        <h3 style="margin: 0 0 12px; font: 500 30px/36px 'Cormorant Garamond', serif;">La mănăstire</h3>
+        <p style="margin: 0 0 20px; font-size: 14px; line-height: 24px; color: #4A4034;">Puteți lăsa darul la pangarul mănăstirii, unde se primesc și pomelnicele scrise de mână. <span class="ph">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span></p>
+        <a href="#vizita" style="margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-weight: 500; font-size: 16px; line-height: 24px; text-decoration: none; border-bottom: 1px solid #C4A24A; padding-bottom: 4px;">Programul de vizită
+          <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </a>
+      </article>
+      <article style="background: #F6F2E9; padding: 32px; display: flex; flex-direction: column; border-top: 4px solid #253528;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 32px; height: 32px; fill: none; stroke: #A88733; stroke-width: 1.5; margin-bottom: 24px;"><path d="m15 12-8.5 8.5a2.1 2.1 0 0 1-3-3L12 9"></path><path d="M17.6 15 22 10.6"></path><path d="m20.9 11.7-1.3-1.3c-.6-.6-.9-1.4-.9-2.2v-.9L16 4.6A5.6 5.6 0 0 0 12.1 3H9l.9.8A6.2 6.2 0 0 1 12 8.4V10l2 2h2.5l2.3 1.9"></path></svg>
+        <h3 style="margin: 0 0 12px; font: 500 30px/36px 'Cormorant Garamond', serif;">Lucrări în curs</h3>
+        <p style="margin: 0 0 20px; font-size: 14px; line-height: 24px; color: #4A4034;"><span class="ph">Restaurarea acoperișului bisericii de vară și amenajarea spațiilor pentru primirea pelerinilor.</span></p>
+        <div style="margin-top: auto;">
+          <div style="display: flex; justify-content: space-between; font-size: 12px; line-height: 16px; color: #6B6254;"><span>Strâns</span><span>[62%]</span></div>
+          <div style="height: 4px; background: #E8E0D0; margin: 8px 0;"><div style="height: 100%; width: 62%; background: #253528;"></div></div>
+          <div style="display: flex; justify-content: space-between; font-size: 12px; line-height: 16px; color: #6B6254;"><span>[SUMA STRÂNSĂ]</span><span>din [SUMA ȚINTĂ]</span></div>
+        </div>
+      </article>
+    </div>
+    <p style="margin: 40px 0 0; text-align: center; font: italic 500 24px/32px 'Cormorant Garamond', serif; color: #6B6254;">„Dătătorul de bună voie îl iubește Dumnezeu.” — 2 Corinteni 9, 7</p>
+  </div>
+</section>
+
+<!-- ============ VI. CONTACTE  (py-32) ============ -->
+<section id="contacte" style="padding: 128px 0;">
+  <div class="wrap-pad" style="max-width: 1280px; margin: 0 auto; padding: 0 32px;  box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px 96px; align-items: flex-start;">
+    <div style="flex: 5 1 320px;">
+      <div style="display: inline-flex; align-items: center; gap: 12px; font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #807566;">
+        <span style="font: 700 16px/24px 'Cormorant Garamond', serif; color: #A88733;">VI</span> Contacte <span style="width: 40px; height: 1px; background: #807566; opacity: .5;"></span>
+      </div>
+      <div><a href="tel:+37325478600" style="display: inline-block; margin: 24px 0 8px; font: 500 clamp(36px, 4.4vw, 60px)/1 'Cormorant Garamond', serif; text-decoration: none; border-bottom: 1px solid #C4A24A;">0254 78 600</a></div>
+      <p style="margin: 0; color: #4A4034;">Secretariatul răspunde zilnic între orele 09:00 și 17:00. <span class="ph">Lorem ipsum dolor sit amet.</span></p>
+    </div>
+    <div style="flex: 7 1 448px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); border-top: 1px solid #1A1208;">
+      <div style="padding: 28px 24px 28px 0; border-bottom: 1px solid #CCC2B3;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: none; stroke: #A88733; stroke-width: 1.5; margin-bottom: 12px;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        <h4 style="margin: 0 0 8px; font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .1em; text-transform: uppercase; color: #6B6254;">Adresa</h4>
+        <p style="margin: 0; font-size: 18px; line-height: 28px;">MD-5431, s. Saharna,<br>r. Rezina, Republica Moldova</p>
+      </div>
+      <div style="padding: 28px 24px 28px 0; border-bottom: 1px solid #CCC2B3;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: none; stroke: #A88733; stroke-width: 1.5; margin-bottom: 12px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <h4 style="margin: 0 0 8px; font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .1em; text-transform: uppercase; color: #6B6254;">Program de vizită</h4>
+        <p style="margin: 0; font-size: 18px; line-height: 28px;">Zilnic, 08:00 – 20:00</p>
+      </div>
+      <div style="padding: 28px 24px 28px 0; border-bottom: 1px solid #CCC2B3;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: none; stroke: #A88733; stroke-width: 1.5; margin-bottom: 12px;"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-9 5.7a1.9 1.9 0 0 1-2 0L2 7"></path></svg>
+        <h4 style="margin: 0 0 8px; font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .1em; text-transform: uppercase; color: #6B6254;">Informații</h4>
+        <a href="mailto:info@manastirea-saharna.md" style="font-size: 18px; line-height: 28px; text-decoration: none;">info@manastirea-saharna.md</a>
+      </div>
+      <div style="padding: 28px 24px 28px 0; border-bottom: 1px solid #CCC2B3;">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: none; stroke: #A88733; stroke-width: 1.5; margin-bottom: 12px;"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+        <h4 style="margin: 0 0 8px; font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .1em; text-transform: uppercase; color: #6B6254;">Secretariat</h4>
+        <a href="mailto:secretariat@manastirea-saharna.md" style="font-size: 18px; line-height: 28px; text-decoration: none; overflow-wrap: anywhere;">secretariat@manastirea-saharna.md</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER  (pt-20 pb-8) ============ -->
+<footer style="background: #1B271E; color: rgba(246,242,233,.75); padding: 80px 0 32px; font-size: 14px; line-height: 24px;">
+  <div class="wrap-pad" style="max-width: 1280px; margin: 0 auto; padding: 0 32px;  box-sizing: border-box;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(192px, 1fr)); gap: 40px; padding-bottom: 48px; border-bottom: 1px solid rgba(246,242,233,.1);">
+      <div>
+        <img src="assets/saharna-logo.png" alt="Sigiliul Sfintei Mănăstiri Saharna" style="height: 112px; width: auto; display: block;">
+        <p style="margin: 20px 0 0; max-width: 288px;">Loc de rugăciune, pelerinaj și slujire ortodoxă pe malul Nistrului.</p>
+      </div>
+      <div>
+        <h5 style="margin: 0 0 16px; font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #C4A24A;">Mănăstirea</h5>
+        <div style="display: flex; flex-direction: column; gap: 8px;"><a href="#prezentare" style="color: inherit; text-decoration: none;">Prezentare</a><a href="#vizita" style="color: inherit; text-decoration: none;">Cum ajungeți</a><a href="#program" style="color: inherit; text-decoration: none;">Programul slujbelor</a></div>
+      </div>
+      <div>
+        <h5 style="margin: 0 0 16px; font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #C4A24A;">Implicare</h5>
+        <div style="display: flex; flex-direction: column; gap: 8px;"><a href="#pomelnic" style="color: inherit; text-decoration: none;">Pomelnic</a><a href="#donatii" style="color: inherit; text-decoration: none;">Donații</a><a href="#contacte" style="color: inherit; text-decoration: none;">Contacte</a></div>
+      </div>
+      <div>
+        <h5 style="margin: 0 0 16px; font: 600 12px/16px 'Commissioner', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #C4A24A;">Urmăriți-ne</h5>
+        <div style="display: flex; flex-direction: column; gap: 8px;"><a href="#" style="color: inherit; text-decoration: none;">YouTube</a><a href="#" style="color: inherit; text-decoration: none;">Facebook</a><a href="#" style="color: inherit; text-decoration: none;">TikTok</a></div>
+      </div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; padding-top: 24px; font-size: 12px; line-height: 16px; color: rgba(246,242,233,.5);">
+      <span>© 2005–2026 Sfânta Mănăstire Saharna</span>
+      <span>Fotografii: Diego Delso, Andrei Szocs (CC BY-SA 4.0), Kamen Tabakov (CC BY-SA 2.0), Guttorm Flatabø (CC BY 2.0) — Wikimedia Commons</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+<script>
+const S={week:[["05:00","Miezonoptica și Utrenia","Slujba de dimineață","Biserica mare"],["07:30","Sfânta Liturghie","Pomenirea pomelnicelor","Biserica mare"],["12:00","Acatistul Sfântului Macarie","La racla cu sfintele moaște","Zilnic"],["17:00","Vecernia","Urmată de spovedanie","Biserica mare"],["20:00","Pavecernița","Rugăciunile de seară","Obștea"]],
+sun:[["06:00","Utrenia","Slujba de dimineață","Biserica mare"],["08:30","Sfânta Liturghie","Liturghia sobornicească","Biserica de vară"],["13:00","Acatistul Maicii Domnului","În fața icoanei făcătoare de minuni","Biserica mare"],["17:00","Vecernia","Vecernia și Paraclisul","Biserica mare"]],
+feast:[["18:00","Privegherea","În ajunul sărbătorii, Vecernia unită cu Utrenia","În ajun"],["08:00","Sfânta Liturghie","Urmată de procesiune și agapă frățească","Ziua praznicului"],["14:00","Acatistul praznicului","Pentru pelerinii sosiți de departe","Ziua praznicului"]]};
+function now(){try{const p=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Chisinau",weekday:"short",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date());const g=k=>p.find(x=>x.type===k).value;return{dow:{Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[g("weekday")],min:(+g("hour")%24)*60+ +g("minute")}}catch(e){const d=new Date();return{dow:d.getDay(),min:d.getHours()*60+d.getMinutes()}}}
+const toMin=t=>{const[a,b]=t.split(":");return a*60+ +b};
+const DAYS=["Duminică","Luni","Marți","Miercuri","Joi","Vineri","Sâmbătă"];
+const N=now();let NX=null;
+for(let add=0;add<8&&!NX;add++){const dow=(N.dow+add)%7;const l=dow===0?S.sun:S.week;const h=l.find(s=>add>0||toMin(s[0])>N.min);if(h){let rel="ora Chișinăului";if(add===0){const d=toMin(h[0])-N.min;rel=d<60?`peste ${d} min`:`peste ${Math.floor(d/60)} h ${d%60} min`;}NX={day:add===0?"Azi":add===1?"Mâine":DAYS[dow],t:h[0],n:h[1],rel,today:add===0};}}
+["day","time","name","rel"].forEach(k=>document.getElementById("nx-"+k).textContent=k==="time"?NX.t:k==="name"?NX.n:NX[k]);
+const todayTab=N.dow===0?"sun":"week";
+function show(tab){document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===tab));
+document.getElementById("panel").innerHTML=S[tab].map(s=>{const isNow=NX.today&&tab===todayTab&&s[0]===NX.t;return `<div style="display:flex;flex-wrap:wrap;gap:4px 24px;align-items:baseline;padding:24px 0;border-bottom:1px solid rgba(246,242,233,.1)"><div style="width:128px;font:600 36px/1 'Cormorant Garamond',serif;color:#C4A24A;display:flex;align-items:center;gap:12px">${s[0]}${isNow?'<span style="width:8px;height:8px;border-radius:9999px;background:#F6F2E9"></span>':''}</div><div style="flex:1 1 240px"><h3 style="margin:0;font:500 24px/32px 'Cormorant Garamond',serif">${s[1]}</h3><p style="margin:4px 0 0;font-size:14px;line-height:20px;color:rgba(246,242,233,.7)">${s[2]}</p></div><span style="font-size:12px;line-height:16px;letter-spacing:.1em;text-transform:uppercase;color:rgba(246,242,233,.6);white-space:nowrap">${s[3]}</span></div>`}).join("");}
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>show(b.dataset.tab));show(todayTab);
+document.getElementById("pform").addEventListener("submit",e=>{e.preventDefault();if(!e.target.checkValidity()){e.target.reportValidity();return;}document.getElementById("form-wrap").hidden=true;document.getElementById("sent-wrap").hidden=false;});
+document.getElementById("again").onclick=()=>{document.getElementById("pform").reset();document.getElementById("form-wrap").hidden=false;document.getElementById("sent-wrap").hidden=true;};
+document.getElementById("copy").onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText("MD00 XX00 0000 0000 0000 0000");};
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll("section > div, blockquote").forEach(el=>{el.classList.add("rv");io.observe(el)});
+document.querySelector(".show-sm[aria-label='Deschide meniul']").onclick=()=>document.getElementById("prezentare").scrollIntoView();
+</script>
+</body>
+</html>
